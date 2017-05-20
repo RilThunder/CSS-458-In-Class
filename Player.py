@@ -11,7 +11,7 @@ class Player:
         self.bust = False
         self.stand = False
         #self.currentBet = GLOBAL.MIN_BET
-        self.currentCards = np.empty()
+        self.currentCards = []
         self.numOfChips = 0
         self.dealer = Dealer
         self.confidenceLevel = .5
@@ -49,9 +49,9 @@ class Player:
     """""
     def play(self):
         while(self.stand == False):
-            while(np.sum(self.currentCards) < 17):
+            while(np.sum(np.asarray(self.currentCards)) < 17):
                 self.hit()
-            if(np.sum(self.currentCards) > 21):
+            if(np.sum(np.asarray(self.currentCards)) > 21):
                 self.bust = True
             else:
                 self.stand == True
