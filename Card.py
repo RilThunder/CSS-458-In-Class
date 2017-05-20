@@ -24,7 +24,7 @@ class Card:
     This method is used to shuffle the array of card
     """""
     def shuffle(self):
-        self.listOfCard = np.random.shuffle(self.listOfCard)
+        np.random.shuffle(self.listOfCard)
 
 
 
@@ -40,3 +40,14 @@ class Card:
 
         self.listOfCard = np.delete(self.listOfCard,0)
         return value
+
+ #   def main(self):
+  #      print(self.listOfCard)
+   #     print(self.draw())
+    #    self.shuffle()
+     #   print(self.listOfCard)
+      #  print(self.draw())
+       # print(self.listOfCard)
+
+#a = Card(3)
+#a.main()
