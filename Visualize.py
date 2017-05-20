@@ -1,8 +1,9 @@
 import Dealer
 import Global
 import Player
+import numpy as np
 
-
+ratio = np.empty()
 def main():
     numberOfGame = 0
 
@@ -24,6 +25,6 @@ def main():
                 listOfPlayer[i].play()
             theDealer.play()
             numberRounds += 1
-
+        ratio.append(win/loss)
         # Finished one whole simulation
         numberOfGame += 1
