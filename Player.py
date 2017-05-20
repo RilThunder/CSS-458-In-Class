@@ -1,5 +1,6 @@
 import Dealer.py as Deal
 import Global.py as GL
+import numpy as np
 
 class Player:
 
@@ -10,7 +11,7 @@ class Player:
 
     def __init__(self, theDealer):
         self.currentBet = GL.MIN_BET
-        self.currentCards = []
+        self.currentCards = np.empty()
         self.numOfChips = 0
         self.dealer = theDealer
         self.confidenceLevel = .5
