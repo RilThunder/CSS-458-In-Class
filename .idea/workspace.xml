@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="298e6ad4-bd87-44f0-b032-f0960e95f7ce" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Player.py" afterPath="$PROJECT_DIR$/Player.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Global.py" afterPath="$PROJECT_DIR$/Global.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Visualize.py" afterPath="$PROJECT_DIR$/Visualize.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -38,13 +38,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Visualize.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Visualize.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Visualize.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="140">
-              <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+            <state relative-caret-position="625">
+              <caret line="25" column="27" lean-forward="false" selection-start-line="25" selection-start-column="27" selection-end-line="25" selection-end-column="27" />
               <folding>
                 <element signature="e#0#13#0" expanded="true" />
+                <marker date="1495320366667" expanded="true" signature="616:896" ph="..." />
               </folding>
             </state>
           </provider>
@@ -53,20 +54,20 @@
       <file leaf-file-name="Player.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Player.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
+            <state relative-caret-position="275">
               <caret line="12" column="30" lean-forward="false" selection-start-line="12" selection-start-column="30" selection-end-line="12" selection-end-column="30" />
               <folding>
-                <element signature="e#0#18#0" expanded="true" />
+                <marker date="1495320024426" expanded="true" signature="0:47" ph="import ..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Global.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Global.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Global.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="150">
-              <caret line="6" column="14" lean-forward="false" selection-start-line="6" selection-start-column="14" selection-end-line="6" selection-end-column="14" />
+            <state relative-caret-position="200">
+              <caret line="8" column="21" lean-forward="false" selection-start-line="8" selection-start-column="21" selection-end-line="8" selection-end-column="21" />
               <folding />
             </state>
           </provider>
@@ -85,10 +86,10 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/Global.py" />
         <option value="$PROJECT_DIR$/Dealer.py" />
         <option value="$PROJECT_DIR$/Card.py" />
         <option value="$PROJECT_DIR$/Player.py" />
+        <option value="$PROJECT_DIR$/Global.py" />
         <option value="$PROJECT_DIR$/Visualize.py" />
       </list>
     </option>
@@ -303,7 +304,14 @@
       <option name="project" value="LOCAL" />
       <updated>1495222335706</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Created a main method for Visualize. Make changes to Player where the Player now take in a Dealer">
+      <created>1495320024991</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1495320024992</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -336,7 +344,11 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Updated the Card and Global Class" />
     <MESSAGE value="Created Global and Card Class. Created method header for Dealer and Player" />
-    <option name="LAST_COMMIT_MESSAGE" value="Created Global and Card Class. Created method header for Dealer and Player" />
+    <MESSAGE value="Created a main method for Visualize. Make changes to Player where the Player now take in a Dealer" />
+    <option name="LAST_COMMIT_MESSAGE" value="Created a main method for Visualize. Make changes to Player where the Player now take in a Dealer" />
+    <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
+    <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
+    <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -366,7 +378,7 @@
         <state relative-caret-position="150">
           <caret line="6" column="48" lean-forward="false" selection-start-line="6" selection-start-column="48" selection-end-line="6" selection-end-column="48" />
           <folding>
-            <element signature="e#0#18#0" expanded="true" />
+            <marker date="1495320024426" expanded="true" signature="0:47" ph="import ..." />
           </folding>
         </state>
       </provider>
@@ -389,14 +401,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Global.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="6" column="14" lean-forward="false" selection-start-line="6" selection-start-column="14" selection-end-line="6" selection-end-column="14" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Card.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1225">
@@ -407,21 +411,30 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Player.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
+        <state relative-caret-position="275">
           <caret line="12" column="30" lean-forward="false" selection-start-line="12" selection-start-column="30" selection-end-line="12" selection-end-column="30" />
           <folding>
-            <element signature="e#0#18#0" expanded="true" />
+            <marker date="1495320024426" expanded="true" signature="0:47" ph="import ..." />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Visualize.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="140">
-          <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+        <state relative-caret-position="625">
+          <caret line="25" column="27" lean-forward="false" selection-start-line="25" selection-start-column="27" selection-end-line="25" selection-end-column="27" />
           <folding>
             <element signature="e#0#13#0" expanded="true" />
+            <marker date="1495320366667" expanded="true" signature="616:896" ph="..." />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Global.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="200">
+          <caret line="8" column="21" lean-forward="false" selection-start-line="8" selection-start-column="21" selection-end-line="8" selection-end-column="21" />
+          <folding />
         </state>
       </provider>
     </entry>
