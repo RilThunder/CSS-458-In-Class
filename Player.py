@@ -1,4 +1,6 @@
 import numpy as np
+import Dealer.py as Deal
+import Globals.py as GL
 
 class Player:
 
@@ -7,6 +9,11 @@ class Player:
     This is the constructor for the Player class
     """""
     def __init__(self):
+        currentBet = GL.MIN_BET
+        currentCards = []
+        numOfChips = 0
+        dealer = Deal
+        confidenceLevel = .5
         pass
 
     """""
@@ -14,6 +21,7 @@ class Player:
     When the player call this, it will act like a hit in the casino
     """""
     def hit(self):
+        currentCards = Deal.
         pass
 
     """""
