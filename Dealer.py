@@ -14,6 +14,7 @@ class Dealer:
         self.listOfPlayer = player
         self.theDeck = Card(numberOfDeck)
 
+    # collects chips when player loses/busts   
     def collectChip(self):
         pass
 
