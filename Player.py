@@ -1,6 +1,5 @@
-import numpy as np
 import Dealer.py as Deal
-import Globals.py as GL
+import Global.py as GL
 
 class Player:
 
@@ -8,12 +7,13 @@ class Player:
     """""
     This is the constructor for the Player class
     """""
-    def __init__(self):
-        currentBet = GL.MIN_BET
-        currentCards = []
-        numOfChips = 0
-        dealer = Deal
-        confidenceLevel = .5
+
+    def __init__(self, theDealer):
+        self.currentBet = GL.MIN_BET
+        self.currentCards = []
+        self.numOfChips = 0
+        self.dealer = theDealer
+        self.confidenceLevel = .5
         pass
 
     """""
