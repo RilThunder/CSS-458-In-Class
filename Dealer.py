@@ -11,7 +11,7 @@ class Dealer:
     """""
     def __init__(self, player, numberOfDeck):
         # Assume that maximum number of card is 22
-        self.numberOfCard = np.empty();
+        self.numberOfCard = []
         self.listOfPlayer = player
         self.theDeck = Card(numberOfDeck)
         self.bust = False
@@ -42,9 +42,9 @@ class Dealer:
     # play method dealer uses play the game
     def play(self):
         while(self.stand == False):
-            while(np.sum(self.numberOfCard) < 17):
+            while(np.sum(np.asarray(self.numberOfCard)) < 17):
                 self.hit()
-            if(np.sum(self.numberOfCard) > 21):
+            if(np.sum(np.asarray(self.numberOfCard)) > 21):
                 self.bust = True
             else:
                 self.stand == True
