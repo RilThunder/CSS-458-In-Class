@@ -26,7 +26,7 @@ def main():
                 listOfPlayer[i].play()
             theDealer.play()
             # for i in range(Global.NUMBER_OF_PLAYER):
-            if (listOfPlayer[0].currentCard.sum() > theDealer.numberOfCards.sum()
+            if (np.asarray(listOfPlayer[0].currentCard).sum() > theDealer.numberOfCards.sum()
                 and listOfPlayer[0].bust == False):
                 win += 1
             else:
