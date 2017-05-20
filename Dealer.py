@@ -17,7 +17,8 @@ class Dealer:
     # collects chips when player loses/busts   
     def collectChip(self):
         pass
-
+    
+    # When the player win, the player will receive betAmount*2
     def payOutChip(self):
         pass
 
