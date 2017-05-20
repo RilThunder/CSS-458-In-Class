@@ -54,9 +54,9 @@ class Player:
             if(np.sum(np.asarray(self.currentCards)) > 21):
                 self.bust = True
             else:
-                self.stand == True
+                self.stand = True
     
-        self.dealer.deal(True, self)
+        #self.dealer.deal(True, self)
    
     def stand(self):
         pass
