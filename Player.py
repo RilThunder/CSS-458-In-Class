@@ -1,5 +1,3 @@
-import Dealer
-import Global
 import numpy as np
 
 class Player:
@@ -15,7 +13,7 @@ class Player:
         #self.currentBet = GLOBAL.MIN_BET
         self.currentCards = np.empty()
         self.numOfChips = 0
-        self.dealer = Deal
+        self.dealer = Dealer
         self.confidenceLevel = .5
         pass
 
