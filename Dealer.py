@@ -1,5 +1,6 @@
 import numpy as np
 import Card
+import Player
 class Dealer:
 
     """""
