@@ -47,7 +47,7 @@ class Dealer:
             if(np.sum(np.asarray(self.numberOfCard)) > 21):
                 self.bust = True
             else:
-                self.stand == True
+                self.stand = True
                  
     def hit(self):
         self.deal(True, self)
