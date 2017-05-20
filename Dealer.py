@@ -11,9 +11,11 @@ class Dealer:
     """""
     def __init__(self, player, numberOfDeck):
         # Assume that maximum number of card is 22
-        self.numberOfCard = np.zeros(22)
+        self.numberOfCard = np.empty();
         self.listOfPlayer = player
         self.theDeck = Card(numberOfDeck)
+        self.bust = False
+        self.stand = False
 
     # collects chips when player loses/busts   
     def collectChip(self):
@@ -23,26 +25,31 @@ class Dealer:
     def payOutChip(self):
         pass
     
-    def deal(hit, player):
-        if(hit == true):
-            player.numberOfCard.append(theDeck.draw())
-        else:
-            for i in listOfPlayer:
-                i.numberOfCard.append(theDeck.draw())
-                i.numberOfCard.append(theDeck.draw())
-            self.cards.append(theDeck.draw())
-            self.cards.append(theDeck.draw())
+    # the player asks the dealer to deal the card to the player.
+    # hit is first initialized to false, for game initialization.
+    def deal(hit, player, self):
+        if(hit == True):   # player can request a card
+            player.numberOfCard.append(self.theDeck.draw())
+        else:          # used for initializing the game
+            for i in self.listOfPlayer:
+                # add two cards for every player
+                i.numberOfCard.append(self.theDeck.draw())
+                i.numberOfCard.append(self.theDeck.draw())
+            # add two cards for the dealer
+            self.cards.append(self.theDeck.draw())
+            self.cards.append(self.theDeck.draw())
     
-    def play():
-        while(stand == false):
-            while(np.sum(numberOfCard) < 17):
-                hit()
-            if(np.sum(numberOfCard) > 21):
-                bust = true
+    # play method dealer uses play the game
+    def play(self):
+        while(self.stand == False):
+            while(np.sum(self.numberOfCard) < 17):
+                self.hit()
+            if(np.sum(self.numberOfCard) > 21):
+                self.bust = True
             else:
-                stand == true
+                self.stand == True
                  
-    def hit():
-        draw(true, self)
+    def hit(self):
+        self.deal(True, self)
 
 
