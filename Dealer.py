@@ -36,8 +36,8 @@ class Dealer:
                 i.numberOfCard.append(self.theDeck.draw())
                 i.numberOfCard.append(self.theDeck.draw())
             # add two cards for the dealer
-            self.cards.append(self.theDeck.draw())
-            self.cards.append(self.theDeck.draw())
+            self.numberOfCard.append(self.theDeck.draw())
+            self.numberOfCard.append(self.theDeck.draw())
     
     # play method dealer uses play the game
     def play(self):
