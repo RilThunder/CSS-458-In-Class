@@ -45,12 +45,17 @@ class Player:
     """""
     This is the stand method of the Player
     When the player call this, then the player will not receive more card and will be judged
-    by the dealer
+    by the dealer. 
     """""
     def play(self):
+         # inside the lopp, initially set to false.
         while(self.stand == False):
+            # checking to see if the sum of the current cards is less than 17
+            # if it is then we hit
             while(np.sum(np.asarray(self.currentCards)) < 17):
                 self.hit()
+            # if the sum of the currecnt cards is more than 21
+            # then we set bus = True. Or they stand. 
             if(np.sum(np.asarray(self.currentCards)) > 21):
                 self.bust = True
             else:
