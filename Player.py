@@ -11,7 +11,7 @@ class Player:
         self.bust = False
         self.stand = False
         #self.currentBet = GLOBAL.MIN_BET
-        self.currentCards = []
+        self.numberOfCard = []
         self.numOfChips = 0
         self.dealer = Dealer
         self.confidenceLevel = .5
@@ -48,18 +48,23 @@ class Player:
     by the dealer. 
     """""
     def play(self):
-         # inside the lopp, initially set to false.
-        while(self.stand == False):
-            # checking to see if the sum of the current cards is less than 17
-            # if it is then we hit
-            while(np.sum(np.asarray(self.currentCards)) < 17):
-                self.hit()
-            # if the sum of the currecnt cards is more than 21
+
+         # inside the loop, initially set to false and bust is not true initially.
+          while(self.stand == False and self.bust!=True):
+               # checking to see if the sum of the current cards is less than 17
+              # if it is then we hit.
+               while(np.sum(np.asarray(self.numberOfCard)) < 17):
+                   self.hit()
+             
+             # if the sum of the currecnt cards is more than 21
             # then we set bus = True. Or they stand. 
-            if(np.sum(np.asarray(self.currentCards)) > 21):
-                self.bust = True
-            else:
-                self.stand = True
+               if(np.sum(np.asarray(self.numberOfCard)) > 21):
+                    self.bust = True
+               else:
+                    self.stand = True
+  
+             
+        
     
         #self.dealer.deal(True, self)
    
