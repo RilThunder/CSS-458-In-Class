@@ -41,7 +41,7 @@ class Dealer:
     
     # play method dealer uses play the game
     def play(self):
-        while(self.stand == False):
+        while(self.stand == False and self.bust != True):
             while(np.sum(np.asarray(self.numberOfCard)) < 17):
                 self.hit()
             if(np.sum(np.asarray(self.numberOfCard)) > 21):
