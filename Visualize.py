@@ -1,10 +1,10 @@
 import numpy as np
 
-import Dealer
+from Dealer import Dealer
 import Global
-import Player
+from Player import Player
 
-ratio = np.empty()
+ratio = []
 def main():
     numberOfGame = 0
 
@@ -20,18 +20,22 @@ def main():
         theDealer.listOfPlayer = listOfPlayer
         numberRounds = 0
 
-        while (numberRounds < Global.NUMBER_OF_ROUNDS_):  # Play each round until player lose or something
+        while (numberRounds < Global.NUMBER_OF_ROUNDS):  # Play each round until player lose or something
             theDealer.deal(False, None)
             for i in range(Global.NUMBER_OF_PLAYER):
                 listOfPlayer[i].play()
             theDealer.play()
             # for i in range(Global.NUMBER_OF_PLAYER):
-            if (np.asarray(listOfPlayer[0].currentCard).sum() > theDealer.numberOfCards.sum()
+            if (np.sum(np.asarray(listOfPlayer[0].numberOfCard)) > np.sum(np.asarray(theDealer.numberOfCard))
                 and listOfPlayer[0].bust == False):
                 win += 1
             else:
                 lose += 1
             numberRounds += 1
+            print(win)
+            print(lose)
         ratio.append(win / lose)
         # Finished one whole simulation
         numberOfGame += 1
+
+main()
