@@ -1,5 +1,5 @@
 import numpy as np
-import Card 
+import Card
 import Player
 class Dealer:
 
