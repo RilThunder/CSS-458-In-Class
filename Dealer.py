@@ -1,5 +1,5 @@
 import numpy as np
-import Card
+import Card import Card
 import Player
 class Dealer:
 
@@ -27,7 +27,7 @@ class Dealer:
     
     # the player asks the dealer to deal the card to the player.
     # hit is first initialized to false, for game initialization.
-    def deal(hit, player, self):
+    def deal(self, hit, player):
         if(hit == True):   # player can request a card
             player.numberOfCard.append(self.theDeck.draw())
         else:          # used for initializing the game
