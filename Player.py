@@ -41,7 +41,9 @@ class Player:
     """""
 
     def split(self):
-
+        if self.numberOfCard[0] == self.numberOfCard[1]:
+            return True
+    
         pass
 
     """""
