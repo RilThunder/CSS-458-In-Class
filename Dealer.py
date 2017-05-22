@@ -66,8 +66,10 @@ class Dealer:
                 if(np.sum(np.asarray(self.numberOfCard)) < 17):
                     while(np.sum(np.asarray(self.numberOfCard)) < 17):
                         self.hit()
-                    if(np.any(np.asarray(self.numberOfCard[:]) == 11):
-                        np.asarray(self.numberOfCard[np.asarray(self.numberOfCard) > 10] = 1
+                    for i in range(self.numberOfCard.__sizeof__()):
+                        if (self.numberOfCard[i]==11):
+                            self.numberOfCard[i] = 1
+                            break;
                 if(np.sum(np.asarray(self.numberOfCard)) > 21):
                     self.bust = True
                 else:

@@ -1,20 +1,31 @@
 import numpy as np
-
+import matplotlib.pyplot as plt
+from matplotlib.animation import FuncAnimation
 import Global
 from Dealer import Dealer
 from Player import Player
 
+# Global variable
 win = 0
 lose = 0
 tie = 0
+# The ratio of win per each game
 ratio = []
 
 
 def main():
+    global hl
+    global win
+    global lose
+    global tie
+    global numberOfRound
     numberOfGame = 0
 
     while (numberOfGame < Global.NUMBER_OF_SIMULATION):
-
+        # Reset the statistics for every new game
+        win = 0
+        lose = 0
+        tie = 0
         theDealer = Dealer(None, Global.NUMBER_OF_DECKS)
         listOfPlayer = []
         for i in range(Global.NUMBER_OF_PLAYER):
@@ -22,11 +33,11 @@ def main():
             listOfPlayer.append(player)  # Each player now have this dealer
         # Asigning the list of player back to the dealer
         theDealer.listOfPlayer = listOfPlayer
-        numberRounds = 0
+
         # Shuffle the deck before entering the game
         theDealer.theDeck.shuffle()
-
-        while (numberRounds < Global.NUMBER_OF_ROUNDS):  # Play each round until player lose or something
+        plt.figure()
+        for i in range(Global.NUMBER_OF_ROUNDS):  # Play each round until player lose or something
 
             theDealer.deal(False, None)
 
@@ -34,7 +45,7 @@ def main():
                 listOfPlayer[i].play()
             theDealer.play()
             check(listOfPlayer, theDealer)
-            numberRounds += 1
+
             # Sample output
             print()
             print("Total number of win, lose and tie for player 1 is")
@@ -46,8 +57,9 @@ def main():
             # Remove cards from player and dealer and start empty again
             theDealer.refresh()
 
-        ratio.append(win / lose)
+        ratio.append(win / (Global.NUMBER_OF_ROUNDS))
         # Finished one whole simulation
+
         numberOfGame += 1
 
 
@@ -75,4 +87,18 @@ def check(listPlayer, theDealer):
             lose += 1
 
 
+# def plotRatio(ratio):
+#
+#     plt.figure()
+#     yAxis = np.asarray(ratio)
+#
+#     xAxis = np.arange(Global.NUMBER_OF_SIMULATION)
+#
+#
+#
+#     plt.plot(xAxis, yAxis)
+#     plt.show()
+
+
 main()
+#plotRatio(ratio)
