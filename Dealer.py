@@ -53,6 +53,7 @@ class Dealer:
     
     # play method dealer uses play the game
     def play(self):
+
         while(self.stand == False and self.bust != True):
             while(np.sum(np.asarray(self.numberOfCard)) < 17):
                 self.hit()
@@ -66,9 +67,14 @@ class Dealer:
 
     """""
     Refresh means get rid of all cards the dealer and player having at the moment
+    Also reset the boolean attributes indicating stand or bust of the dealer and players
     """""
 
     def refresh(self):
         self.numberOfCard = []
+        self.bust = False
+        self.stand = False
         for i in self.listOfPlayer:
             i.numberOfCard = []
+            i.stand = False
+            i.bust = False

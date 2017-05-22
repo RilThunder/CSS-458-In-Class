@@ -11,6 +11,7 @@ def main():
     while (numberOfGame < Global.NUMBER_OF_SIMULATION):
         win = 0  # Win/Loss ratio
         lose = 0
+        tie = 0
         theDealer = Dealer(None, Global.NUMBER_OF_DECKS)
         listOfPlayer = []
         for i in range(Global.NUMBER_OF_PLAYER):
@@ -29,22 +30,34 @@ def main():
             for i in range(Global.NUMBER_OF_PLAYER):
                 listOfPlayer[i].play()
             theDealer.play()
-            # for i in range(Global.NUMBER_OF_PLAYER):
-            # print(np.sum(np.asarray(listOfPlayer[0].numberOfCard)))
-            # print(np.sum(np.asarray(theDealer.numberOfCard)))
-            # print()
+            print("For the " + str(numberOfGame + 1) + " game and the " + str(numberRounds + 1) + " round")
+            print("The first player have a total of " + str(np.sum(np.asarray(listOfPlayer[0].numberOfCard))))
+            print("The dealer have a total of " + str(np.sum(np.asarray(theDealer.numberOfCard))))
+
+            print()
             # Check to see if the first player win or lose this round
+            # The player win when the player haven't bust and the dealer already busted
+            # Or when both player and dealer haven't bust but the player card have to be
+            # greater than the dealer
             if ((np.sum(np.asarray(listOfPlayer[0].numberOfCard)) > np.sum(np.asarray(theDealer.numberOfCard))) and
-                        listOfPlayer[0].bust == False):
+                        listOfPlayer[0].bust == False) \
+                    or (theDealer.bust and listOfPlayer[0].bust == False):
                 win += 1
             else:
-                lose += 1
+                if (np.sum(np.asarray(listOfPlayer[0].numberOfCard)) == np.sum(np.asarray(theDealer.numberOfCard))):
+                    tie += 1
+                else:
+
+                    lose += 1
+
             numberRounds += 1
             # Sample output
-            # print()
-            # print(win)
-            # print(lose)
-            # print()
+            print()
+            print("Total number of win, lose and tie for player 1 is")
+            print(win)
+            print(lose)
+            print(tie)
+            print()
 
             # Remove cards from player and dealer and start empty again
             theDealer.refresh()
