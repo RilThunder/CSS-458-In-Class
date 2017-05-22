@@ -46,7 +46,8 @@ class Player:
         else:
             False
         pass
-       
+        
+    
     
 
     """""
@@ -78,3 +79,13 @@ class Player:
             else:
                 self.stand = True
                 # self.dealer.deal(True, self)
+                
+        
+    def refresh(self):
+        self.numberOfCard = []
+        self.bust = False
+        self.stand = False
+        for i in self.listOfPlayer:
+            i.numberOfCard = []
+            i.stand = False
+            i.bust = False
