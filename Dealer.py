@@ -1,5 +1,5 @@
 import numpy as np
-
+import Global
 from Card import Card
 
 
@@ -53,15 +53,27 @@ class Dealer:
     
     # play method dealer uses play the game
     def play(self):
-
-        while(self.stand == False and self.bust != True):
-            while(np.sum(np.asarray(self.numberOfCard)) < 17):
-                self.hit()
-            if(np.sum(np.asarray(self.numberOfCard)) > 21):
-                self.bust = True
-            else:
-                self.stand = True
-                 
+        if(Global.DEALER_SOFT_SEVENTEEN == False):
+            while(self.stand == False and self.bust != True):
+                while(np.sum(np.asarray(self.numberOfCard)) < 17):
+                    self.hit()
+                if(np.sum(np.asarray(self.numberOfCard)) > 21):
+                    self.bust = True
+                else:
+                    self.stand = True
+        elif(Global.DEALER_SOFT_SEVENTEEN == True):
+            while(self.stand == False and self.bust != True):
+                if(np.sum(np.asarray(self.numberOfCard)) < 18):
+                    while(np.sum(np.asarray(self.numberOfCard)) < 17):
+                        self.hit()
+                    if(np.any(np.asarray(self.numberOfCard[:]) == 11):
+                        np.asarray(self.numberOfCard[np.asarray(self.numberOfCard) > 10] = 1
+                if(np.sum(np.asarray(self.numberOfCard)) > 21):
+                    self.bust = True
+                else:
+                    self.stand = True
+                    
+                    
     def hit(self):
         self.deal(True, self)
 
