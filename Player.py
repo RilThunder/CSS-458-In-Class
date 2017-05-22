@@ -41,15 +41,13 @@ class Player:
     """""
 
     def split(self):
-        if len(self.numberOfCard) == 2 and self.numberOfCard[0][0] == self.numberOfCard[1][0]:
+        if len(self.numberOfCard) == 2 and self.numberOfCard[0] == self.numberOfCard[1]:
             return True
         else:
             False
         pass
         
     
-    
-
     """""
     This is the stand method of the Player
     When the player call this, then the player will not receive more card and will be judged
