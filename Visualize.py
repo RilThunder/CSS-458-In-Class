@@ -30,9 +30,10 @@ def main():
                 listOfPlayer[i].play()
             theDealer.play()
             # for i in range(Global.NUMBER_OF_PLAYER):
-            print(np.sum(np.asarray(listOfPlayer[0].numberOfCard)))
-            print(np.sum(np.asarray(theDealer.numberOfCard)))
-            print()
+            # print(np.sum(np.asarray(listOfPlayer[0].numberOfCard)))
+            # print(np.sum(np.asarray(theDealer.numberOfCard)))
+            # print()
+            # Check to see if the first player win or lose this round
             if ((np.sum(np.asarray(listOfPlayer[0].numberOfCard)) > np.sum(np.asarray(theDealer.numberOfCard))) and
                         listOfPlayer[0].bust == False):
                 win += 1
@@ -40,11 +41,14 @@ def main():
                 lose += 1
             numberRounds += 1
             # Sample output
-            print()
-            print(win)
-            print(lose)
-            print()
+            # print()
+            # print(win)
+            # print(lose)
+            # print()
+
+            # Remove cards from player and dealer and start empty again
             theDealer.refresh()
+
         ratio.append(win / lose)
         # Finished one whole simulation
         numberOfGame += 1
