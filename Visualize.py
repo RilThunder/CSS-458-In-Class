@@ -1,7 +1,7 @@
 import numpy as np
 
-from Dealer import Dealer
 import Global
+from Dealer import Dealer
 from Player import Player
 
 ratio = []
@@ -19,21 +19,32 @@ def main():
         # Asigning the list of player back to the dealer
         theDealer.listOfPlayer = listOfPlayer
         numberRounds = 0
+        # Shuffle the deck before entering the game
+        theDealer.theDeck.shuffle()
 
         while (numberRounds < Global.NUMBER_OF_ROUNDS):  # Play each round until player lose or something
+
             theDealer.deal(False, None)
+
             for i in range(Global.NUMBER_OF_PLAYER):
                 listOfPlayer[i].play()
             theDealer.play()
             # for i in range(Global.NUMBER_OF_PLAYER):
-            if (np.sum(np.asarray(listOfPlayer[0].numberOfCard)) > np.sum(np.asarray(theDealer.numberOfCard))
-                and listOfPlayer[0].bust == False):
+            print(np.sum(np.asarray(listOfPlayer[0].numberOfCard)))
+            print(np.sum(np.asarray(theDealer.numberOfCard)))
+            print()
+            if ((np.sum(np.asarray(listOfPlayer[0].numberOfCard)) > np.sum(np.asarray(theDealer.numberOfCard))) and
+                        listOfPlayer[0].bust == False):
                 win += 1
             else:
                 lose += 1
             numberRounds += 1
+            # Sample output
+            print()
             print(win)
             print(lose)
+            print()
+            theDealer.refresh()
         ratio.append(win / lose)
         # Finished one whole simulation
         numberOfGame += 1
