@@ -63,7 +63,7 @@ class Dealer:
                     self.stand = True
         elif(Global.DEALER_SOFT_SEVENTEEN == True):
             while(self.stand == False and self.bust != True):
-                if(np.sum(np.asarray(self.numberOfCard)) < 18):
+                if(np.sum(np.asarray(self.numberOfCard)) < 17):
                     while(np.sum(np.asarray(self.numberOfCard)) < 17):
                         self.hit()
                     if(np.any(np.asarray(self.numberOfCard[:]) == 11):
