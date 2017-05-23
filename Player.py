@@ -16,6 +16,8 @@ class Player:
         self.confidenceLevel = .5
         self.secondHandCard = []
         self.choice = 3
+        self.split = False
+        self.double = False
         pass
 
     """""
@@ -34,7 +36,7 @@ class Player:
 
     def double(self):
         self.currentBet = Global.BUY_IN * 2
-        self.hit()
+        self.double = True
         self.stand = True
         pass
 
@@ -70,6 +72,7 @@ class Player:
             # The player will double when the card reach 11
             if np.sum(np.asarray(self.firstHandCard) == 11):
                 self.double()
+                self.hit()
                 if (np.sum(np.asarray(self.firstHandCard)) > 21):
                     self.bust = True
                 break
@@ -122,19 +125,28 @@ class Player:
     probablity
     """
     def playWithOdds(self):
+        self.currentBet = Global.BUY_IN
+        # inside the loop, initially set to false and bust is not true initially.
+        while (self.stand == False and self.bust != True):
         # Need to check if busted as well. If busted then 21 - totalValue will be negative
-        totalValue = np.sum(np.asarray(self.firstHandCard))
 
-        remainingWeNeed = 21 - totalValue
-        lengthOfTotal = np.size(self.dealer.firstHandCard)
-        count = 0.0
-        for i in self.dealer.firstHandCard:
-            if i <= remainingWeNeed:
-                count+=1
-        probWeShouldContinue = count/lengthOfTotal
-        choice = random.random()
-        if probWeShouldContinue < choice:
-            self.hit()
-        else:
-            self.stand = False
+
+            # Calculating the remainng cards to determine the probabiltity
+
+            totalValue = np.sum(np.asarray(self.firstHandCard))
+            remainingWeNeed = 21 - totalValue
+            lengthOfTotal = np.size(self.dealer.firstHandCard)
+            count = 0.0
+            for i in self.dealer.firstHandCard:
+                if i <= remainingWeNeed:
+                    count+=1
+            probWeShouldContinue = count/lengthOfTotal
+            choice = random.random()
+            if probWeShouldContinue >= choice:
+
+                self.hit()
+            else:
+                self.stand = False
+                continue
+
      
