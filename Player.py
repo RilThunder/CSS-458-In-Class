@@ -64,7 +64,14 @@ class Player:
     by the dealer. 
     """""
     def playNormal(self):
-        self.currentBet = Global.BUY_IN
+        if(self.confidenceLevel > .5 and self.currentBet < Global.MAX_BET):
+            self.currentBet += round(self.currentBet * (self.confidenceLevel - .5))
+            if(self.currentBet > Global.MAX_BET):
+                self.currentBet = Global.MAX_BET
+        elif(self.confidenceLevel < .5 and self.currentBet > Global.BUY_IN):
+            self.currentBet -= round(self.currentBet * (.5 - self.confidenceLevel))
+            if(self.currentBet < Global.BUY_IN):
+                self.currentBet = Global.BUY_IN
         # inside the loop, initially set to false and bust is not true initially.
         while (self.stand == False and self.bust != True):
 
