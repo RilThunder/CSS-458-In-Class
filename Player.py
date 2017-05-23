@@ -44,7 +44,8 @@ class Player:
 
     def split(self):
         if len(self.firstHandCard) == 2 and self.firstHandCard[0] == self.firstHandCard[1]:
-
+            self.secondHandCard.append(self.firstHandCard[1])
+            self.firstHandCard.remove(self.firstHandCard[1])
             return True
         else:
             False
@@ -62,6 +63,9 @@ class Player:
         # inside the loop, initially set to false and bust is not true initially.
         while (self.stand == False and self.bust != True):
 
+
+            # Need to stop after double. In this loop, still draw after double
+
             # The player will double when the card reach 11
             if np.sum(np.asarray(self.firstHandCard) == 11):
                 self.double()
@@ -70,7 +74,7 @@ class Player:
                 break
                 # checking to see if the sum of the current cards is less than 17
             # if it is then we hit.
-            while (np.sum(np.asarray(self.firstHandCard)) < 17):
+            while (np.sum(np.asarray(self.firstHandCard)) < 17 and self.stand == False):
                 # Maybe put a condition of when to double
                 self.hit()
                 # if the sum of the currecnt cards is more than 21
