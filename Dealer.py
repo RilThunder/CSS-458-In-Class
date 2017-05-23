@@ -42,13 +42,16 @@ class Dealer:
 
             player.firstHandCard.append(self.theDeck.draw())
         else:          # used for initializing the game
+            # For the number of players
             for i in self.listOfPlayer:
+                
+                # add two cards for every player
                 if (len(self.theDeck.listOfCard) < 2):
                     self.theDeck = Card(self.numberDeckUsed)
                     self.theDeck.shuffle()
-                # add two cards for every player
                 i.firstHandCard.append(self.theDeck.draw())
                 i.firstHandCard.append(self.theDeck.draw())
+                
             # add two cards for the dealer
             if (len(self.theDeck.listOfCard) < 2):
                 self.theDeck = Card(self.numberDeckUsed)
@@ -58,23 +61,44 @@ class Dealer:
     
     # play method dealer uses play the game
     def play(self):
+        
+        # If playing with hard 17 rule
         if(Global.DEALER_SOFT_SEVENTEEN == False):
+            
+            # If the dealer does not stand, and is not bust
             while(self.stand == False and self.bust != True):
+                
+                # Dealer hits until the dealer has 17 or higher cards
                 while(np.sum(np.asarray(self.firstHandCard)) < 17):
                     self.hit()
+                    
+                # If the dealer has over 21 cards, dealer busts otherwise stands.
                 if(np.sum(np.asarray(self.firstHandCard)) > 21):
                     self.bust = True
                 else:
                     self.stand = True
+                    
+        # If playing with soft 17 rule
         elif(Global.DEALER_SOFT_SEVENTEEN == True):
+            
+            # If the dealer does not stand, and is not bust
             while(self.stand == False and self.bust != True):
+                
+                # If dealer's hand is below 17
                 if(np.sum(np.asarray(self.firstHandCard)) < 17):
+                    
+                    # Dealer hits until the dealer has 17 or higher cards
                     while(np.sum(np.asarray(self.firstHandCard)) < 17):
                         self.hit()
+                        
+                    # If dealer has an Ace in his hand, then he has to use the Ace
+                    # with 1 value under Soft17 rule
                     for i in range(self.firstHandCard.__sizeof__()):
                         if (self.firstHandCard[i]==11):
                             self.firstHandCard[i] = 1
                             break;
+                            
+                # If the dealer has over 21 cards, dealer busts otherwise stands.
                 if(np.sum(np.asarray(self.firstHandCard)) > 21):
                     self.bust = True
                 else:
@@ -89,7 +113,6 @@ class Dealer:
     Refresh means get rid of all cards the dealer and player having at the moment
     Also reset the boolean attributes indicating stand or bust of the dealer and players
     """""
-
     def refresh(self):
         self.firstHandCard = []
         self.bust = False
