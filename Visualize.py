@@ -75,6 +75,9 @@ def check(listPlayer, theDealer, numberOfGame, numberOfRound):
                 listPlayer[0].bust == False) \
             or (theDealer.bust and listPlayer[0].bust == False):
         win += 1
+        plt.plot(win/numberOfRound, numberOfRound, market='o', color='r')
+        plt.pause(0.01)
+        plt.show()
     else:
         if (np.sum(np.asarray(listPlayer[0].firstHandCard)) == np.sum(np.asarray(theDealer.firstHandCard))):
             tie += 1
@@ -82,7 +85,9 @@ def check(listPlayer, theDealer, numberOfGame, numberOfRound):
             if (theDealer.bust and listPlayer[0].bust):
                 print("The player Busted first")
             lose += 1
-
+            plt.plot(win/numberOfRound, numberOfRound, market='o', color='r')
+            plt.pause(0.01)
+            plt.show()
     # Sample output
     print()
     print("Total number of win, lose and tie for player 1 is")
