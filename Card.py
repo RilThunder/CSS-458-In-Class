@@ -24,6 +24,7 @@ class Card:
     This method is used to shuffle the array of card
     """""
     def shuffle(self):
+        # Use Numpy Random Shuffle to shuffle the cards
         np.random.shuffle(self.listOfCard)
 
 
@@ -36,8 +37,8 @@ class Card:
     def draw(self):
         # Get the next card
         value = self.listOfCard[0]
+        
         # Delete that card and create a new array of the old one with the missing of the card
-
         self.listOfCard = np.delete(self.listOfCard,0)
         return value
 
