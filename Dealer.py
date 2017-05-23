@@ -28,11 +28,15 @@ class Dealer:
                 i.numOfChips += i.currentBet * 2
                 if (i.confidenceLevel < 1.0):
                     i.confidenceLevel += i.confidenceLevel**4
+                    if (i.confidenceLevel > 1.0):
+                        i.confidenceLevel = 1.0
             else:
                 if (np.sum(np.asarray(i.firstHandCard)) != np.sum(np.asarray(self.firstHandCard))):
                     i.numOfChips-= i.currentBet
                     if (i.confidenceLevel > 0.0):
                         i.confidenceLevel -= i.confidenceLevel**4
+                        if (i.confidenceLevel < 0.0):
+                            i.confidenceLevel = 0.0
     
 
     
