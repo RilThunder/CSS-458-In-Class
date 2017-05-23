@@ -1,6 +1,6 @@
 import numpy as np
 import Global
-
+import random
 class Player:
     """""
     This is the constructor for the Player class
@@ -84,6 +84,27 @@ class Player:
             else:
                 self.stand = True
                 # self.dealer.deal(True, self)
-                
-        
+
+
+
+    """
+    Play with odds by determining what cards are left and picking a choice based on the
+    probablity
+    """
+    def playWithOdds(self):
+        # Need to check if busted as well. If busted then 21 - totalValue will be negative
+        totalValue = np.sum(np.asarray(self.firstHandCard))
+
+        remainingWeNeed = 21 - totalValue
+        lengthOfTotal = np.size(self.dealer.firstHandCard)
+        count = 0.0
+        for i in self.dealer.firstHandCard:
+            if i <= remainingWeNeed:
+                count+=1
+        probWeShouldContinue = count/lengthOfTotal
+        choice = random.random()
+        if probWeShouldContinue < choice:
+            self.hit()
+        else:
+            self.stand = False
      
