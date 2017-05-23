@@ -45,8 +45,9 @@ def main():
                 listOfPlayer[j].play()
             theDealer.play()
 
-            check(listOfPlayer, theDealer, numberOfGame, i)
 
+            theDealer.collectChip()
+            check(listOfPlayer, theDealer, numberOfGame, i)
             # Remove cards from player and dealer and start empty again
             theDealer.refresh()
 
@@ -88,6 +89,7 @@ def check(listPlayer, theDealer, numberOfGame, numberOfRound):
     print("Win: " + str(win))
     print("Lose " + str(lose))
     print("Tie: " + str(tie))
+    print("Total chips at the moment " + str(listPlayer[0].numOfChips))
     print()
 
 

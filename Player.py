@@ -1,5 +1,5 @@
 import numpy as np
-
+import Global
 
 class Player:
     """""
@@ -9,11 +9,9 @@ class Player:
     def __init__(self, Dealer):
         self.bust = False
         self.stand = False
-        # self.currentBet = GLOBAL.MIN_BET
-
-
+        self.currentBet = Global.BUY_IN
         self.firstHandCard = []
-        self.numOfChips = 0
+        self.numOfChips = Global.STARTING_CHIPS
         self.dealer = Dealer
         self.confidenceLevel = .5
         self.secondHandCard = []
@@ -34,6 +32,7 @@ class Player:
     """""
 
     def double(self):
+        self.currentBet = Global.BUY_IN * 2
         self.hit()
         self.stand = True
         pass
@@ -59,7 +58,7 @@ class Player:
     """""
 
     def play(self):
-
+        self.currentBet = Global.BUY_IN
         # inside the loop, initially set to false and bust is not true initially.
         while (self.stand == False and self.bust != True):
 

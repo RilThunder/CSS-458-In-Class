@@ -22,11 +22,15 @@ class Dealer:
 
     # collects chips when player loses/busts   
     def collectChip(self):
-        pass
+        for i in self.listOfPlayer:
+            if (i.bust == False and (np.sum(np.asarray(i.firstHandCard)) > np.sum(np.asarray(self.firstHandCard))))\
+                    or (self.bust == True and i.bust == False):
+                i.numOfChips += i.currentBet * 2
+            else:
+                if (np.sum(np.asarray(i.firstHandCard)) != np.sum(np.asarray(self.firstHandCard))):
+                    i.numOfChips-= i.currentBet
     
-    # When the player win, the player will receive betAmount*2
-    def payOutChip(self):
-        pass
+
     
     # the player asks the dealer to deal the card to the player.
     # hit is first initialized to false, for game initialization.
@@ -90,5 +94,6 @@ class Dealer:
         self.stand = False
         for i in self.listOfPlayer:
             i.firstHandCard = []
+            i.currentBet = 0
             i.stand = False
             i.bust = False
