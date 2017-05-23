@@ -19,60 +19,81 @@ def main():
     global tie
     global numberOfRound
     numberOfGame = 0
+    
+    # Initialize the Plot Figure to plot the data
     fig1 = plt.figure()
+    # While loops until Number of Simulation is met
     while (numberOfGame < Global.NUMBER_OF_SIMULATION):
         # Reset the statistics for every new game
         win = 0
         lose = 0
         tie = 0
+        
+        # Initialize the Dealer for this Simulation
         theDealer = Dealer(None, Global.NUMBER_OF_DECKS)
+        
+        # Initialize the Player(s) for this simulation
         listOfPlayer = []
-        for i in range(Global.NUMBER_OF_PLAYER):
+        for i in range(Global.NUMBER_OF_PLAYER): # Player number is decided on NUMBER_OF_PLAYER
             player = Player(theDealer)
             listOfPlayer.append(player)  # Each player now have this dealer
+            
         # Asigning the list of player back to the dealer
         theDealer.listOfPlayer = listOfPlayer
 
         # Shuffle the deck before entering the game
         theDealer.theDeck.shuffle()
-        #plt.figure()
-        for i in range(Global.NUMBER_OF_ROUNDS):  # Play each round until player lose or something
+        
+        # Play each round until NUMBER_OF ROUNDS or Player runs out of Chips
+        for i in range(Global.NUMBER_OF_ROUNDS): 
 
+            # Initialize the Game, by dealing 2 cards for every player(s)
+            # and the dealer.
             theDealer.deal(False, None)
 
+            # Player(s) play until they Stand or Bust
             for j in range(Global.NUMBER_OF_PLAYER):
                 listOfPlayer[j].play()
+                
+            # Dealer play until dealer Stand or Bust
             theDealer.play()
-
 
             theDealer.collectChip()
             check(listOfPlayer, theDealer, numberOfGame, i)
             # Remove cards from player and dealer and start empty again
             theDealer.refresh()
 
+        # After all rounds are played, win ratio is appended to Ratio List.
         ratio.append(float(win) / (Global.NUMBER_OF_ROUNDS))
         # Finished one whole simulation
         
+        # Declaring the Axes to be used in Fig1
         ax1 = fig1.add_axes((0.08, 0.55, 0.4, 0.4)) 
-        ax2 = fig1.add_axes((0.58, 0.55, 0.4, 0.4))
-        ax1.plot(numberOfGame, ratio[numberOfGame],  '-.', color='b')
-        ax1.plot(range(numberOfGame+1), ratio, marker='.', color='r')
-        ax2.bar(range(numberOfGame+1), ratio)
-        ax1.axis([0, Global.NUMBER_OF_SIMULATION, 0, 1])
-        ax2.axis([0, Global.NUMBER_OF_SIMULATION, 0, 1])
-
+        ax1.axis([1, Global.NUMBER_OF_SIMULATION, 0., 1.])
         ax1.set_title('Win Ratio vs Number of Games')
         ax1.set_xlabel('Number of Games')
         ax1.set_ylabel('Win Ratio')
+        
+        ax2 = fig1.add_axes((0.58, 0.55, 0.4, 0.4))
+        ax2.axis([1, Global.NUMBER_OF_SIMULATION, 0., 1.])
         ax2.set_title('Win Ratio vs Number of Games')
         ax2.set_xlabel('Number of Games')
         ax2.set_ylabel('Win Ratio')
         
-        plt.pause(0.001)
-        fig1.show()
+        # Plot the first axes in Fig1
+        ax1.plot(numberOfGame, ratio[numberOfGame],  '-.', color='b')
+        ax1.plot(range(numberOfGame+1), ratio, marker='.', color='r')
+        
+        # Plot the second axes in Fig1
+        ax2.bar(range(numberOfGame+1), ratio)
+
+        plt.pause(0.001) # Pause 0.001 to create interval between every plot
+        fig1.show() # Display Fig1 
 
         numberOfGame += 1
-    plt.show()
+
+    plt.show() 
+    
 def check(listPlayer, theDealer, numberOfGame, numberOfRound):
     global win
     global tie
