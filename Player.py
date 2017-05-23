@@ -31,7 +31,8 @@ class Player:
 
     """""
     This is the double method of the Player
-    When the player call this, it will act like a double in the casino
+    When the player call this, it will act like a double in the casino.
+    Have to decide probability. 
     """""
 
     def double(self):
