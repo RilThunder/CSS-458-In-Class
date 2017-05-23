@@ -39,7 +39,7 @@ class Dealer:
             if (len(self.theDeck.listOfCard) < 2):
                 self.theDeck = Card(self.numberDeckUsed)
                 self.theDeck.shuffle()
-            
+
             player.firstHandCard.append(self.theDeck.draw())
         else:          # used for initializing the game
             for i in self.listOfPlayer:

@@ -75,7 +75,7 @@ def check(listPlayer, theDealer, numberOfGame, numberOfRound):
                 listPlayer[0].bust == False) \
             or (theDealer.bust and listPlayer[0].bust == False):
         win += 1
-        plt.plot(win/numberOfRound, numberOfRound, market='o', color='r')
+        plt.plot(win/(numberOfRound+1), numberOfRound+1, marker='o', color='r')
         plt.pause(0.01)
         plt.show()
     else:
@@ -85,7 +85,7 @@ def check(listPlayer, theDealer, numberOfGame, numberOfRound):
             if (theDealer.bust and listPlayer[0].bust):
                 print("The player Busted first")
             lose += 1
-            plt.plot(win/numberOfRound, numberOfRound, market='o', color='r')
+            plt.plot(win/(numberOfRound+1), numberOfRound+1, marker='o', color='r')
             plt.pause(0.01)
             plt.show()
     # Sample output
