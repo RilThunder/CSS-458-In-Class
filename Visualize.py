@@ -98,10 +98,10 @@ def check(listPlayer, theDealer, numberOfGame, numberOfRound):
     global win
     global tie
     global lose
-    print("For the " + str(numberOfGame + 1) + "th game and " + str(
-        numberOfRound + 1) + "th round, here are the results ")
-    print("The first player have a total of " + str(np.sum(np.asarray(listPlayer[0].firstHandCard))))
-    print("The dealer have a total of " + str(np.sum(np.asarray(theDealer.firstHandCard))))
+    print("For game " + str(numberOfGame + 1) + " and round " + str(
+        numberOfRound + 1) + ", here are the results ")
+    print("The first player had a total of " + str(np.sum(np.asarray(listPlayer[0].firstHandCard))))
+    print("The dealer had a total of " + str(np.sum(np.asarray(theDealer.firstHandCard))))
 
     print()
     # Check to see if the first player win or lose this round
