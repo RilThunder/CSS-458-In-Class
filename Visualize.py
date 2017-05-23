@@ -13,7 +13,6 @@ tie = 0.
 ratio = []
 
 def main():
-    global hl
     global win
     global lose
     global tie
@@ -134,18 +133,5 @@ def check(listPlayer, theDealer, numberOfGame, numberOfRound):
     print()
 
 
-# def plotRatio(ratio):
-#
-#     plt.figure()
-#     yAxis = np.asarray(ratio)
-#
-#     xAxis = np.arange(Global.NUMBER_OF_SIMULATION)
-#
-#
-#
-#     plt.plot(xAxis, yAxis)
-#     plt.show()
-
 
 main()
-# plotRatio(ratio)
