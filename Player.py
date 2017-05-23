@@ -17,7 +17,7 @@ class Player:
         self.secondHandCard = []
         self.choice = 3
         self.split = False
-        self.double = False
+        self.didDouble = False
         pass
 
     """""
@@ -36,7 +36,7 @@ class Player:
 
     def double(self):
         self.currentBet = Global.BUY_IN * 2
-        self.double = True
+        self.didDouble = True
         self.stand = True
         pass
 

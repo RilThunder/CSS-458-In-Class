@@ -58,8 +58,8 @@ def main():
         ax1.plot(numberOfGame, ratio[numberOfGame],  '-.', color='b')
         ax1.plot(range(numberOfGame+1), ratio, marker='.', color='r')
         ax2.bar(range(numberOfGame+1), ratio)
-        ax1.axis([0, 100, 0, 1])
-        ax2.axis([0, 100, 0, 1])
+        ax1.axis([0, Global.NUMBER_OF_SIMULATION, 0, 1])
+        ax2.axis([0, Global.NUMBER_OF_SIMULATION, 0, 1])
         plt.title('Win/Loss ratio vs Number of Games')
         #ax1.xlabel('Number of Games')
         #ax1.ylabel('Win/Loss Ratio')
@@ -68,7 +68,7 @@ def main():
         fig1.show()
 
         numberOfGame += 1
-        
+    plt.show()
 def check(listPlayer, theDealer, numberOfGame, numberOfRound):
     global win
     global tie
