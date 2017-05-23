@@ -14,7 +14,7 @@ class Dealer:
     def __init__(self, player, numberOfDeck):
         # Assume that maximum number of card is 22
         self.numberDeckUsed = numberOfDeck
-        self.numberOfCard = []
+        self.firstHandCard = []
         self.listOfPlayer = player
         self.theDeck = Card(numberOfDeck)
         self.bust = False
@@ -35,42 +35,42 @@ class Dealer:
             if (len(self.theDeck.listOfCard) < 2):
                 self.theDeck = Card(self.numberDeckUsed)
                 self.theDeck.shuffle()
-            player.numberOfCard.append(self.theDeck.draw())
+            player.firstHandCard.append(self.theDeck.draw())
         else:          # used for initializing the game
             for i in self.listOfPlayer:
                 if (len(self.theDeck.listOfCard) < 2):
                     self.theDeck = Card(self.numberDeckUsed)
                     self.theDeck.shuffle()
                 # add two cards for every player
-                i.numberOfCard.append(self.theDeck.draw())
-                i.numberOfCard.append(self.theDeck.draw())
+                i.firstHandCard.append(self.theDeck.draw())
+                i.firstHandCard.append(self.theDeck.draw())
             # add two cards for the dealer
             if (len(self.theDeck.listOfCard) < 2):
                 self.theDeck = Card(self.numberDeckUsed)
                 self.theDeck.shuffle()
-            self.numberOfCard.append(self.theDeck.draw())
-            self.numberOfCard.append(self.theDeck.draw())
+            self.firstHandCard.append(self.theDeck.draw())
+            self.firstHandCard.append(self.theDeck.draw())
     
     # play method dealer uses play the game
     def play(self):
         if(Global.DEALER_SOFT_SEVENTEEN == False):
             while(self.stand == False and self.bust != True):
-                while(np.sum(np.asarray(self.numberOfCard)) < 17):
+                while(np.sum(np.asarray(self.firstHandCard)) < 17):
                     self.hit()
-                if(np.sum(np.asarray(self.numberOfCard)) > 21):
+                if(np.sum(np.asarray(self.firstHandCard)) > 21):
                     self.bust = True
                 else:
                     self.stand = True
         elif(Global.DEALER_SOFT_SEVENTEEN == True):
             while(self.stand == False and self.bust != True):
-                if(np.sum(np.asarray(self.numberOfCard)) < 17):
-                    while(np.sum(np.asarray(self.numberOfCard)) < 17):
+                if(np.sum(np.asarray(self.firstHandCard)) < 17):
+                    while(np.sum(np.asarray(self.firstHandCard)) < 17):
                         self.hit()
-                    for i in range(self.numberOfCard.__sizeof__()):
-                        if (self.numberOfCard[i]==11):
-                            self.numberOfCard[i] = 1
+                    for i in range(self.firstHandCard.__sizeof__()):
+                        if (self.firstHandCard[i]==11):
+                            self.firstHandCard[i] = 1
                             break;
-                if(np.sum(np.asarray(self.numberOfCard)) > 21):
+                if(np.sum(np.asarray(self.firstHandCard)) > 21):
                     self.bust = True
                 else:
                     self.stand = True
@@ -85,10 +85,10 @@ class Dealer:
     """""
 
     def refresh(self):
-        self.numberOfCard = []
+        self.firstHandCard = []
         self.bust = False
         self.stand = False
         for i in self.listOfPlayer:
-            i.numberOfCard = []
+            i.firstHandCard = []
             i.stand = False
             i.bust = False

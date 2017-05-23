@@ -10,10 +10,13 @@ class Player:
         self.bust = False
         self.stand = False
         # self.currentBet = GLOBAL.MIN_BET
-        self.numberOfCard = []
+
+
+        self.firstHandCard = []
         self.numOfChips = 0
         self.dealer = Dealer
         self.confidenceLevel = .5
+        self.secondHandCard = []
         pass
 
     """""
@@ -41,7 +44,8 @@ class Player:
     """""
 
     def split(self):
-        if len(self.numberOfCard) == 2 and self.numberOfCard[0] == self.numberOfCard[1]:
+        if len(self.firstHandCard) == 2 and self.firstHandCard[0] == self.firstHandCard[1]:
+
             return True
         else:
             False
@@ -60,19 +64,19 @@ class Player:
         while (self.stand == False and self.bust != True):
 
             # The player will double when the card reach 11
-            if np.sum(np.asarray(self.numberOfCard) == 11):
+            if np.sum(np.asarray(self.firstHandCard) == 11):
                 self.double()
-                if (np.sum(np.asarray(self.numberOfCard)) > 21):
+                if (np.sum(np.asarray(self.firstHandCard)) > 21):
                     self.bust = True
                 break
                 # checking to see if the sum of the current cards is less than 17
             # if it is then we hit.
-            while (np.sum(np.asarray(self.numberOfCard)) < 17):
+            while (np.sum(np.asarray(self.firstHandCard)) < 17):
                 # Maybe put a condition of when to double
                 self.hit()
                 # if the sum of the currecnt cards is more than 21
                 # then we set bus = True. Or they stand.
-            if (np.sum(np.asarray(self.numberOfCard)) > 21):
+            if (np.sum(np.asarray(self.firstHandCard)) > 21):
                 self.bust = True
             else:
                 self.stand = True
