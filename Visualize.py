@@ -6,12 +6,11 @@ from Dealer import Dealer
 from Player import Player
 
 # Global variable
-win = 0
-lose = 0
-tie = 0
+win = 0.
+lose = 0.
+tie = 0.
 # The ratio of win per each game
 ratio = []
-
 
 def main():
     global hl
@@ -20,7 +19,7 @@ def main():
     global tie
     global numberOfRound
     numberOfGame = 0
-
+    fig1 = plt.figure()
     while (numberOfGame < Global.NUMBER_OF_SIMULATION):
         # Reset the statistics for every new game
         win = 0
@@ -36,7 +35,7 @@ def main():
 
         # Shuffle the deck before entering the game
         theDealer.theDeck.shuffle()
-        plt.figure()
+        #plt.figure()
         for i in range(Global.NUMBER_OF_ROUNDS):  # Play each round until player lose or something
 
             theDealer.deal(False, None)
@@ -51,12 +50,25 @@ def main():
             # Remove cards from player and dealer and start empty again
             theDealer.refresh()
 
-        ratio.append(win / (Global.NUMBER_OF_ROUNDS))
+        ratio.append(float(win) / (Global.NUMBER_OF_ROUNDS))
         # Finished one whole simulation
+        
+        ax1 = fig1.add_axes((0.08, 0.55, 0.4, 0.4)) 
+        ax2 = fig1.add_axes((0.58, 0.55, 0.4, 0.4))
+        ax1.plot(numberOfGame, ratio[numberOfGame],  '-.', color='b')
+        ax1.plot(range(numberOfGame+1), ratio, marker='.', color='r')
+        ax2.bar(range(numberOfGame+1), ratio)
+        ax1.axis([0, 100, 0, 1])
+        ax2.axis([0, 100, 0, 1])
+        plt.title('Win/Loss ratio vs Number of Games')
+        #ax1.xlabel('Number of Games')
+        #ax1.ylabel('Win/Loss Ratio')
+        
+        plt.pause(0.001)
+        fig1.show()
 
         numberOfGame += 1
-
-
+        
 def check(listPlayer, theDealer, numberOfGame, numberOfRound):
     global win
     global tie
@@ -75,9 +87,6 @@ def check(listPlayer, theDealer, numberOfGame, numberOfRound):
                 listPlayer[0].bust == False) \
             or (theDealer.bust and listPlayer[0].bust == False):
         win += 1
-        plt.plot(win/(numberOfRound+1), numberOfRound+1, marker='o', color='r')
-        plt.pause(0.01)
-        plt.show()
     else:
         if (np.sum(np.asarray(listPlayer[0].firstHandCard)) == np.sum(np.asarray(theDealer.firstHandCard))):
             tie += 1
@@ -85,9 +94,11 @@ def check(listPlayer, theDealer, numberOfGame, numberOfRound):
             if (theDealer.bust and listPlayer[0].bust):
                 print("The player Busted first")
             lose += 1
-            plt.plot(win/(numberOfRound+1), numberOfRound+1, marker='o', color='r')
-            plt.pause(0.01)
-            plt.show()
+    """
+    plt.plot(numberOfRound+1, win/(numberOfRound+1.), marker='o', color='r')
+    plt.pause(0.01)
+    plt.show()
+    """
     # Sample output
     print()
     print("Total number of win, lose and tie for player 1 is")
