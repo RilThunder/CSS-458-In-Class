@@ -15,6 +15,7 @@ class Player:
         self.dealer = Dealer
         self.confidenceLevel = .5
         self.secondHandCard = []
+        self.choice = 3
         pass
 
     """""
@@ -58,13 +59,13 @@ class Player:
     by the dealer. 
     """""
 
-    def play(self):
+    def playNormal(self):
         self.currentBet = Global.BUY_IN
         # inside the loop, initially set to false and bust is not true initially.
         while (self.stand == False and self.bust != True):
 
 
-            # Need to stop after double. In this loop, still draw after double
+
 
             # The player will double when the card reach 11
             if np.sum(np.asarray(self.firstHandCard) == 11):
@@ -84,6 +85,35 @@ class Player:
             else:
                 self.stand = True
                 # self.dealer.deal(True, self)
+
+
+
+
+
+
+    def play(self):
+        if self.choice == 1:
+            self.playWithOdds()
+        else:
+            if self.choice ==2:
+                self.playWithRandom()
+            else:
+                self.playNormal()
+
+
+
+
+
+
+
+
+
+
+
+
+    def playWithRandom(self):
+        pass
+
 
 
 
