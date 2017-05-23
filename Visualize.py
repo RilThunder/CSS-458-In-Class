@@ -60,9 +60,13 @@ def main():
         ax2.bar(range(numberOfGame+1), ratio)
         ax1.axis([0, Global.NUMBER_OF_SIMULATION, 0, 1])
         ax2.axis([0, Global.NUMBER_OF_SIMULATION, 0, 1])
-        plt.title('Win/Loss ratio vs Number of Games')
-        #ax1.xlabel('Number of Games')
-        #ax1.ylabel('Win/Loss Ratio')
+
+        ax1.set_title('Win Ratio vs Number of Games')
+        ax1.set_xlabel('Number of Games')
+        ax1.set_ylabel('Win Ratio')
+        ax2.set_title('Win Ratio vs Number of Games')
+        ax2.set_xlabel('Number of Games')
+        ax2.set_ylabel('Win Ratio')
         
         plt.pause(0.001)
         fig1.show()
