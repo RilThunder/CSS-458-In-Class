@@ -42,6 +42,13 @@ class Player:
         self.stand = True
         pass
 
+
+    """""
+    Implement play method for the split.
+    """""
+    def play_split(self):
+        pass
+
     """""
     This is the split method of the Player
     When the player call this, it will act like an actual split in the casino 
@@ -56,7 +63,8 @@ class Player:
         else:
             False
         pass
-        
+  
+              
     
     """""
     This is the stand method of the Player
