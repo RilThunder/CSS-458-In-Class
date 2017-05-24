@@ -77,7 +77,7 @@ def main():
         ax1.set_ylabel('Win Ratio')
         
         ax2 = fig1.add_axes((0.58, 0.55, 0.4, 0.4))
-    #    ax2.axis([1, Global.NUMBER_OF_SIMULATION, 0.])
+        ax2.axis([1, Global.NUMBER_OF_SIMULATION, 0., 20])
         ax2.set_title('Number of Wins vs Number of Games')
         ax2.set_xlabel('Number of Games')
         ax2.set_ylabel('Number of Wins')
