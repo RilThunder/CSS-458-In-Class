@@ -11,8 +11,10 @@ lose = 0.
 tie = 0.
 # The ratio of win per each game
 ratio = []
+wins = []
 
 def main():
+    global wins
     global win
     global lose
     global tie
@@ -63,6 +65,7 @@ def main():
             theDealer.refresh()
 
         # After all rounds are played, win ratio is appended to Ratio List.
+        wins.append(win)
         ratio.append(float(win) / (Global.NUMBER_OF_ROUNDS))
         # Finished one whole simulation
         
@@ -74,17 +77,17 @@ def main():
         ax1.set_ylabel('Win Ratio')
         
         ax2 = fig1.add_axes((0.58, 0.55, 0.4, 0.4))
-        ax2.axis([1, Global.NUMBER_OF_SIMULATION, 0., 1.])
-        ax2.set_title('Win Ratio vs Number of Games')
+    #    ax2.axis([1, Global.NUMBER_OF_SIMULATION, 0.])
+        ax2.set_title('Number of Wins vs Number of Games')
         ax2.set_xlabel('Number of Games')
-        ax2.set_ylabel('Win Ratio')
+        ax2.set_ylabel('Number of Wins')
         
         # Plot the first axes in Fig1
         ax1.plot(numberOfGame, ratio[numberOfGame],  '-.', color='b')
         ax1.plot(range(numberOfGame+1), ratio, marker='.', color='r')
-        
+
         # Plot the second axes in Fig1
-        ax2.bar(range(numberOfGame+1), ratio)
+        ax2.bar(range(numberOfGame+1), wins)
 
         plt.pause(0.001) # Pause 0.001 to create interval between every plot
         fig1.show() # Display Fig1 
@@ -97,6 +100,7 @@ def check(listPlayer, theDealer, numberOfGame, numberOfRound):
     global win
     global tie
     global lose
+    global wins
     print("For game " + str(numberOfGame + 1) + " and round " + str(
         numberOfRound + 1) + ", here are the results ")
     print("The first player had a total of " + str(np.sum(np.asarray(listPlayer[0].firstHandCard))))
@@ -125,6 +129,7 @@ def check(listPlayer, theDealer, numberOfGame, numberOfRound):
     """
     # Sample output
     print()
+
     print("Total number of win, lose and tie for player 1 is")
     print("Win: " + str(win))
     print("Lose " + str(lose))
