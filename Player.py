@@ -16,7 +16,7 @@ class Player:
         self.dealer = Dealer
         self.confidenceLevel = .5
         self.secondHandCard = []          # secondhand used for the split()
-        self.choice = 3
+        self.choice = 1
         self.split = False
         self.didDouble = False
         pass
@@ -72,16 +72,7 @@ class Player:
     by the dealer. 
     """""
     def playNormal(self):
-        if(self.confidenceLevel > .5 and self.currentBet < Global.MAX_BET):
-            self.currentBet += round(self.currentBet * (self.confidenceLevel - .5))
-            
-        elif(self.confidenceLevel < .5 and self.currentBet > Global.BUY_IN):
-            self.currentBet -= round(self.currentBet * (.5 - self.confidenceLevel))
-        if(self.currentBet < Global.BUY_IN):
-            self.currentBet = Global.BUY_IN
-        if(self.currentBet > Global.MAX_BET):
-            self.currentBet = Global.MAX_BET
-        # inside the loop, initially set to false and bust is not true initially.
+        self.makeTheBet()# inside the loop, initially set to false and bust is not true initially.
         while (self.stand == False and self.bust != True):
 
             # The player will double when the card reach 11
@@ -108,7 +99,19 @@ class Player:
     
     
   # This play functions allow the player to choose if they want to play by the
- # odds, random or Normal.  
+ # odds, random or Normal.
+
+    def makeTheBet(self):
+        if (self.confidenceLevel > .5 and self.currentBet < Global.MAX_BET):
+            self.currentBet += round(self.currentBet * (self.confidenceLevel - .5))
+
+        elif (self.confidenceLevel < .5 and self.currentBet > Global.BUY_IN):
+            self.currentBet -= round(self.currentBet * (.5 - self.confidenceLevel))
+        if (self.currentBet < Global.BUY_IN):
+            self.currentBet = Global.BUY_IN
+        if (self.currentBet > Global.MAX_BET):
+            self.currentBet = Global.MAX_BET
+
     def play(self):
         if self.choice == 1:
             self.playWithOdds()
@@ -130,7 +133,7 @@ class Player:
     probablity
     """
     def playWithOdds(self):
-        self.currentBet = Global.BUY_IN
+        self.makeTheBet()
         # inside the loop, initially set to false and bust is not true initially.
         while (self.stand == False and self.bust != True):
         # Need to check if busted as well. If busted then 21 - totalValue will be negative
@@ -153,7 +156,8 @@ class Player:
 
                 self.hit()
             else:
-                self.stand = False
-                continue
+                self.stand = True
+            if (np.sum(np.asarray(self.firstHandCard)) > 21):
+                self.bust = True
 
      
