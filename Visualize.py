@@ -71,13 +71,13 @@ def main():
         
         # Declaring the Axes to be used in Fig1
         ax1 = fig1.add_axes((0.08, 0.55, 0.4, 0.4)) 
-        ax1.axis([1, Global.NUMBER_OF_SIMULATION, 0., 1.])
+        ax1.axis([1, Global.NUMBER_OF_SIMULATION, 0.0,1.0])
         ax1.set_title('Win Ratio vs Number of Games')
         ax1.set_xlabel('Number of Games')
         ax1.set_ylabel('Win Ratio')
         
         ax2 = fig1.add_axes((0.58, 0.55, 0.4, 0.4))
-        ax2.axis([1, Global.NUMBER_OF_SIMULATION, 0., 20])
+        ax2.axis([1, Global.NUMBER_OF_SIMULATION, 0, Global.NUMBER_OF_SIMULATION])
         ax2.set_title('Number of Wins vs Number of Games')
         ax2.set_xlabel('Number of Games')
         ax2.set_ylabel('Number of Wins')
@@ -89,7 +89,7 @@ def main():
         # Plot the second axes in Fig1
         ax2.bar(range(numberOfGame+1), wins)
 
-        plt.pause(0.001) # Pause 0.001 to create interval between every plot
+        plt.pause(0.005) # Pause 0.001 to create interval between every plot
         fig1.show() # Display Fig1 
 
         numberOfGame += 1
