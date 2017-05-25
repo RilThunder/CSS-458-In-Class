@@ -36,17 +36,24 @@ class Player:
     """""
     
     def double(self):
+        # player's probability of choosing to double down
         # In our simulation we are going to double between 9 to 11 inclusive.
-        self.currentBet = Global.BUY_IN * 2
-        self.didDouble = True
+        if len(self.firstHandCard):
+            if 9 <= self.firstHandCard <= 11:
+                self.didDouble = True
+                self.currentBet = Global.BUY_IN * 2
+        
         self.stand = True
         pass
 
 
     """""
     Implement play method for the split.
+    Checking to see if the players card 1 and card 2 are the same.
     """""
     def play_split(self):
+        if len(self.firstHandCard) == 2 and self.firstHandCard[0] == self.firstHandCard[1]:
+            return True
         pass
 
     """""
@@ -54,14 +61,13 @@ class Player:
     When the player call this, it will act like an actual split in the casino 
     """""
     def split(self):
-        # Checks to see if the length of the card is 2 and if the index value 
+        # Calling the split function
         # of the card at 0 is equalt to the index value of card at 1. 
-        if len(self.firstHandCard) == 2 and self.firstHandCard[0] == self.firstHandCard[1]:
+        if self.play_split():
             self.secondHandCard.append(self.firstHandCard[1])
             self.firstHandCard.remove(self.firstHandCard[1])
             return True
-        else:
-            False
+        
         pass
   
               
