@@ -1,13 +1,17 @@
-import numpy as np
-import Global
 import random
+
+import numpy as np
+
+import Global
+
+
 class Player:
-    
     """""
     This is the constructor for the Player class.
     All variables to be used for the player is initialized here.
     """""
-    def __init__(self, Dealer):
+
+    def __init__(self, Dealer, wayToPlay):
         self.bust = False
         self.stand = False
         self.currentBet = Global.BUY_IN
@@ -15,8 +19,8 @@ class Player:
         self.numOfChips = Global.STARTING_CHIPS
         self.dealer = Dealer
         self.confidenceLevel = .5
-        self.secondHandCard = []          # secondhand used for the split()
-        self.choice = 1
+        self.secondHandCard = []  # secondhand used for the split()
+        self.choice = wayToPlay
         self.split = False
         self.didDouble = False
         pass
@@ -25,6 +29,7 @@ class Player:
     This is the hit method of the Player.
     When the player call this, dealer will deal the card to the player.
     """""
+
     def hit(self):
         self.dealer.deal(True, self)
         pass
@@ -34,53 +39,52 @@ class Player:
     When the player call this, it will act like a double in the casino.
     Have to decide probability. 
     """""
-    
+
     def double(self):
         # player's probability of choosing to double down
         # In our simulation we are going to double between 9 to 11 inclusive.
-        if len(self.firstHandCard):
-            if 9 <= self.firstHandCard <= 11:
-                self.didDouble = True
-                self.currentBet = Global.BUY_IN * 2
-        
+
+        # What does this mean ?
+        sum = np.sum(np.asarray(self.firstHandCard))
+        if sum >= 9 and sum <= 11:
+            self.didDouble = True
+            self.currentBet = Global.BUY_IN * 2
         self.stand = True
-        pass
 
 
     """""
     Implement play method for the split.
     Checking to see if the players card 1 and card 2 are the same.
     """""
+
     def play_split(self):
         if len(self.firstHandCard) == 2 and self.firstHandCard[0] == self.firstHandCard[1]:
             return True
-        pass
+
 
     """""
     This is the split method of the Player
     When the player call this, it will act like an actual split in the casino 
     """""
+
     def split(self):
         # Calling the split function
         # of the card at 0 is equalt to the index value of card at 1. 
         if self.play_split():
             self.secondHandCard.append(self.firstHandCard[1])
             self.firstHandCard.remove(self.firstHandCard[1])
+
             return True
-        
-        pass
-  
-              
-    
+
     """""
     This is the stand method of the Player
     When the player call this, then the player will not receive more card and will be judged
     by the dealer. 
     """""
-    def playNormal(self):
-        self.makeTheBet()# inside the loop, initially set to false and bust is not true initially.
-        while (self.stand == False and self.bust != True):
 
+    def playNormal(self):
+        self.makeTheBet()  # inside the loop, initially set to false and bust is not true initially.
+        while (self.stand == False and self.bust != True):
             # The player will double when the card reach 11
             if np.sum(np.asarray(self.firstHandCard) == 11):
                 self.double()
@@ -101,12 +105,10 @@ class Player:
                 self.stand = True
                 # self.dealer.deal(True, self)
 
-   
-    
-    
-  # This play functions allow the player to choose if they want to play by the
- # odds, random or Normal.
-
+    """
+    This method is used to determinehow much the player will bet for each round
+    Depending on the confidence level, the player will bet more or less
+    """
     def makeTheBet(self):
         if (self.confidenceLevel > .5 and self.currentBet < Global.MAX_BET):
             self.currentBet += round(self.currentBet * (self.confidenceLevel - .5))
@@ -118,52 +120,66 @@ class Player:
         if (self.currentBet > Global.MAX_BET):
             self.currentBet = Global.MAX_BET
 
+    """ 
+    This method will pick the way the player will play
+    Either by playing with odss, play with random or play in a normal way 
+    and will continue it until the player stand or bust 
+    """
+
     def play(self):
         if self.choice == 1:
             self.playWithOdds()
         else:
-            if self.choice ==2:
+            if self.choice == 2:
                 self.playWithRandom()
             else:
                 self.playNormal()
 
     """
     Play with random makes player to act randomly without any constraints.
+    This is determined by a probability
+    It is like flipping a coin. <= 0.5 then the player will hit, else the player will stand
     """
+
     def playWithRandom(self):
-        pass
-
-
-    """
-    Play with odds by determining what cards are left and picking a choice based on the
-    probablity
-    """
-    def playWithOdds(self):
         self.makeTheBet()
-        # inside the loop, initially set to false and bust is not true initially.
         while (self.stand == False and self.bust != True):
-        # Need to check if busted as well. If busted then 21 - totalValue will be negative
-
-
-            # Calculating the remaning cards to determine the probabiltity
-
-            totalValue = np.sum(np.asarray(self.firstHandCard))
-            remainingWeNeed = 21 - totalValue
-            lengthOfTotal = np.size(self.dealer.firstHandCard)
-            count = 0.0
-            for i in self.dealer.firstHandCard:
-                if i <= remainingWeNeed:
-                    count+=1
-            probWeShouldContinue = count/lengthOfTotal
             choice = random.random()
-            # if the probability is greater than or eqault to the choice then
-            # the player continues to hit or if not then they will stand. 
-            if probWeShouldContinue >= choice:
-
+            if choice <= 0.5:
                 self.hit()
             else:
                 self.stand = True
             if (np.sum(np.asarray(self.firstHandCard)) > 21):
                 self.bust = True
 
-     
+    """
+    Play with odds by determining what cards are left and picking a choice based on the
+    probablity
+    """
+
+    def playWithOdds(self):
+        self.makeTheBet()
+        # inside the loop, initially set to false and bust is not true initially.
+        while (self.stand == False and self.bust != True):
+            # Need to check if busted as well. If busted then 21 - totalValue will be negative
+            # Calculating the remaning cards to determine the probabiltity
+            totalValue = np.sum(np.asarray(self.firstHandCard))
+            remainingWeNeed = 21 - totalValue
+            lengthOfTotal = np.size(self.dealer.firstHandCard)
+            count = 0.0
+            for i in self.dealer.firstHandCard:
+                if i <= remainingWeNeed:
+                    count += 1
+            probWeShouldContinue = count / lengthOfTotal
+            choice = random.random()
+            sum = np.sum(np.asarray(self.firstHandCard))
+            # if the probability is greater than or eqault to the choice then
+            # the player continues to hit or if not then they will stand. 
+            if probWeShouldContinue >= choice:
+                if sum >= 9 and sum <= 11:
+                    self.double()
+                self.hit()
+            else:
+                self.stand = True
+            if (np.sum(np.asarray(self.firstHandCard)) > 21):
+                self.bust = True
