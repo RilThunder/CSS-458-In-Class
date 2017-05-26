@@ -48,7 +48,7 @@ class Player:
         sum = np.sum(np.asarray(self.firstHandCard))
         if sum >= 9 and sum <= 11:
             self.didDouble = True
-            self.currentBet = Global.BUY_IN * 2
+            self.currentBet = self.currentBet * 2
         self.stand = True
 
 
