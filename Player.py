@@ -51,16 +51,6 @@ class Player:
         self.stand = True
 
 
-    """""
-    Implement play method for the split.
-    Checking to see if the players card 1 and card 2 are the same.
-    """""
-
-    def play_split(self):
-        if len(self.firstHandCard) == 2 and self.firstHandCard[0] == self.firstHandCard[1]:
-            return True
-
-
 
 
     """""
