@@ -19,11 +19,9 @@ class Player:
         self.numOfChips = Global.STARTING_CHIPS
         self.dealer = Dealer
         self.confidenceLevel = .5
-        self.secondHandCard = []  # secondhand used for the split()
         self.choice = wayToPlay
-        self.split = False
         self.didDouble = False
-        self.bustSecond = False
+
         pass
 
     """""
@@ -63,32 +61,6 @@ class Player:
             return True
 
 
-    """""
-    This is the split method of the Player
-    When the player call this, it will act like an actual split in the casino 
-    """""
-
-    def split(self):
-        # Calling the split function
-        # of the card at 0 is equalt to the index value of card at 1. 
-        if self.play_split():
-            self.secondHandCard.append(self.firstHandCard[1])
-            self.firstHandCard.remove(self.firstHandCard[1])
-            self.currentBet = self.currentBet * 2
-            while (True):
-                self.hit()
-                sumOfFirstCard = np.sum(np.asarray(self.firstHandCard))
-                sumOfSecondCard = np.sum(np.asarray(self.secondHandCard))
-                if (self.bust and self.bustSecond):
-                    break
-                if sumOfFirstCard > 21:
-                    self.bust = True
-                if sumOfSecondCard > 21:
-                    self.bustSecond = True
-                    # Need to add double, stand in here as well
-
-
-            return True
 
 
     """""
@@ -165,11 +137,6 @@ class Player:
                 newChoice = random.random()
                 if newChoice <= 0.25:
                     self.double()
-                else:
-                    if newChoice > 0.25 and newChoice <= 0.5 and self.play_split():
-                        self.split()
-                    else:
-                        self.hit()
             else:
                 self.stand = True
             if (np.sum(np.asarray(self.firstHandCard)) > 21):

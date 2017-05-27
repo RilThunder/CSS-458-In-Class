@@ -46,12 +46,8 @@ class Dealer:
             if (len(self.theDeck.listOfCard) < 2):
                 self.theDeck = Card(self.numberDeckUsed)
                 self.theDeck.shuffle()
-            if player.split:
-                if (not player.bust):
-                    player.firstHandCard.append(self.theDeck.draw())
-                if (not player.bustSecond):
-                    player.secondHandCard.append(self.theDeck.draw())
-
+            if (not player.bust):
+                player.firstHandCard.append(self.theDeck.draw())
         else:  # used for initializing the game
             # For the number of players
             for i in self.listOfPlayer:
@@ -129,6 +125,6 @@ class Dealer:
         self.stand = False
         for i in self.listOfPlayer:
             i.firstHandCard = []
-            i.currentBet = 0
+
             i.stand = False
             i.bust = False
