@@ -88,7 +88,7 @@ class Player:
                 else:
                     # Should not stand when after drawing one card and the total card
                     # is still less than 17
-                    if (np.sum.np.asarray(self.firstHandCard) < 17):
+                    if (np.sum(np.asarray(self.firstHandCard) < 17)):
                         continue
                     else:
                         self.stand = True
