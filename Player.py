@@ -62,6 +62,7 @@ class Player:
         self.makeTheBet()  # inside the loop, initially set to false and bust is not true initially.
         while (self.stand == False and self.bust != True):
             # The player will double when the sum of card is in the range 9 - 11
+            self.dealer.checkLengthCard()
             if np.sum(np.asarray(self.firstHandCard)) <= 11 and np.sum(np.asarray(self.firstHandCard)) >= 9:
                 self.double()
                 self.hit()
@@ -72,6 +73,7 @@ class Player:
             # if it is then we hit.
             while (np.sum(np.asarray(self.firstHandCard)) < 17 and self.stand == False):
                 # Maybe put a condition of when to double
+                self.dealer.checkLengthCard()
                 self.hit()
                 # if the sum of the currecnt cards is more than 21
                 # then we set bus = True. Or they stand.
@@ -138,6 +140,7 @@ class Player:
     def playWithRandom(self):
         self.makeTheBet()
         while (self.stand == False and self.bust != True):
+            self.dealer.checkLengthCard()
             choice = random.random()
             if choice <= Global.CHANCE_TO_HIT:
                 self.hit()
@@ -163,15 +166,19 @@ class Player:
 
     def playWithOdds(self):
         self.makeTheBet()
+
         # inside the loop, initially set to false and bust is not true initially.
         while (self.stand == False and self.bust != True):
             # Need to check if busted as well. If busted then 21 - totalValue will be negative
             # Calculating the remaning cards to determine the probabiltity
+            self.dealer.checkLengthCard()
             totalValue = np.sum(np.asarray(self.firstHandCard))
             remainingWeNeed = 21 - totalValue
-            lengthOfTotal = np.size(self.dealer.firstHandCard)
+            lengthOfTotal = np.size(self.dealer.theDeck.listOfCard)
+            if (lengthOfTotal == 0):
+                print('Check')
             count = 0.0
-            for i in self.dealer.firstHandCard:
+            for i in self.dealer.theDeck.listOfCard:
                 if i <= remainingWeNeed:
                     count += 1
             probWeShouldContinue = count / lengthOfTotal

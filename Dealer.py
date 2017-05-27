@@ -42,9 +42,7 @@ class Dealer:
     # the player asks the dealer to deal the card to the player.
     # hit is first initialized to false, for game initialization.
     def deal(self, hit, player):
-        if (len(self.theDeck.listOfCard) < 2):
-            self.theDeck = Card(self.numberDeckUsed)
-            self.theDeck.shuffle()
+        self.checkLengthCard()
         if (hit == True):  # player can request a card
 
             if (not player.bust):
@@ -54,18 +52,20 @@ class Dealer:
             for i in self.listOfPlayer:
 
                 # add two cards for every player
-                if (len(self.theDeck.listOfCard) < 2):
-                    self.theDeck = Card(self.numberDeckUsed)
-                    self.theDeck.shuffle()
+                self.checkLengthCard()
                 i.firstHandCard.append(self.theDeck.draw())
                 i.firstHandCard.append(self.theDeck.draw())
 
             # add two cards for the dealer
-            if (len(self.theDeck.listOfCard) < 2):
-                self.theDeck = Card(self.numberDeckUsed)
-                self.theDeck.shuffle()
+            self.checkLengthCard()
             self.firstHandCard.append(self.theDeck.draw())
             self.firstHandCard.append(self.theDeck.draw())
+        self.checkLengthCard()
+
+    def checkLengthCard(self):
+        if (len(self.theDeck.listOfCard) < 2):
+            self.theDeck = Card(self.numberDeckUsed)
+            self.theDeck.shuffle()
 
     # play method dealer uses play the game
     def play(self):
