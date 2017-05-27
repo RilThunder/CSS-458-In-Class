@@ -164,11 +164,20 @@ def playRound():
         if listOfPlayer[j].bust == True:
             print('Player ' +str(j + 1) + ' Bust!')
     # Dealer play until dealer Stand or Bust
-    print('Dealer starts with ' + str(listOfPlayer[j].firstHandCard))
+    print('Dealer starts with ' + str(theDealer.firstHandCard))
     theDealer.play()
-    print('Dealer ends with '+ str(listOfPlayer[j].firstHandCard))
+    print('Dealer ends with '+ str(theDealer.firstHandCard))
     if theDealer.bust == True:
         print('Dealer Bust!')
+    for j in range(Global.NUMBER_OF_PLAYER):
+        if ((np.sum(np.asarray(listOfPlayer[j].firstHandCard)) > np.sum(np.asarray(theDealer.firstHandCard))) and listOfPlayer[j].bust == False) \
+                or (theDealer.bust and listOfPlayer[j].bust == False):
+            print('Player ' + str(j+1) + ' won!')
+        else:
+            if (np.sum(np.asarray(listOfPlayer[0].firstHandCard)) == np.sum(np.asarray(theDealer.firstHandCard))):
+                print('Player ' + str(j+1) + ' tied the dealer!')
+            else:
+                print('Player ' + str(j+1) + ' lost!')
     theDealer.collectChip()
     # Remove cards from player and dealer and start empty again
     theDealer.refresh()
