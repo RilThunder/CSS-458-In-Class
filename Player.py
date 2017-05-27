@@ -43,7 +43,6 @@ class Player:
         # player's probability of choosing to double down
         # In our simulation we are going to double between 9 to 11 inclusive.
 
-        # What does this mean ?
         sum = np.sum(np.asarray(self.firstHandCard))
         if sum >= 9 and sum <= 11:
             self.didDouble = True
@@ -79,11 +78,16 @@ class Player:
             if (np.sum(np.asarray(self.firstHandCard)) > 21):
                 self.bust = True
             else:
-                self.stand = True
+                # Should not stand when after drawing one card and the total card
+                # is still less than 17
+                if (np.sum.np.asarray(self.firstHandCard) < 17):
+                    continue
+                else:
+                    self.stand = True
                 # self.dealer.deal(True, self)
 
     """
-    This method is used to determinehow much the player will bet for each round
+    This method is used to determine how much the player will bet for each round
     Depending on the confidence level, the player will bet more or less
     """
     def makeTheBet(self):
@@ -122,11 +126,13 @@ class Player:
         self.makeTheBet()
         while (self.stand == False and self.bust != True):
             choice = random.random()
-            if choice <= 0.5:
+            if choice <= Global.CHANCE_TO_HIT:
                 self.hit()
+                # Should we double ? There is a 0.25 chance that we will double
                 newChoice = random.random()
-                if newChoice <= 0.25:
+                if newChoice <= Global.CHANCE_TO_DOUBLE:
                     self.double()
+                    self.hit()
             else:
                 self.stand = True
             if (np.sum(np.asarray(self.firstHandCard)) > 21):

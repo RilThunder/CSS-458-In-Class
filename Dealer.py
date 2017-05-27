@@ -42,10 +42,11 @@ class Dealer:
     # the player asks the dealer to deal the card to the player.
     # hit is first initialized to false, for game initialization.
     def deal(self, hit, player):
+        if (len(self.theDeck.listOfCard) < 2):
+            self.theDeck = Card(self.numberDeckUsed)
+            self.theDeck.shuffle()
         if (hit == True):  # player can request a card
-            if (len(self.theDeck.listOfCard) < 2):
-                self.theDeck = Card(self.numberDeckUsed)
-                self.theDeck.shuffle()
+
             if (not player.bust):
                 player.firstHandCard.append(self.theDeck.draw())
         else:  # used for initializing the game

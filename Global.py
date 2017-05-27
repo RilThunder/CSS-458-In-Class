@@ -13,4 +13,6 @@ NUMBER_OF_SIMULATION = 40       # Number of Simulation to be done
 NUMBER_OF_ROUNDS = 25  # Number of rounds per simulation
 DEALER_SOFT_SEVENTEEN = False   # Assign soft17 rule for the Dealer
 WAY_TO_PLAY = 1
+CHANCE_TO_DOUBLE = 0.25
+CHANCE_TO_HIT = 0.5
 #playerSeen = np.array()
