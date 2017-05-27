@@ -2,6 +2,7 @@ import numpy as np
 
 import Global
 from Card import Card
+from Player import Player
 
 
 class Dealer:
@@ -46,11 +47,12 @@ class Dealer:
             if (len(self.theDeck.listOfCard) < 2):
                 self.theDeck = Card(self.numberDeckUsed)
                 self.theDeck.shuffle()
-            if player.split:
-                if (not player.bust):
-                    player.firstHandCard.append(self.theDeck.draw())
-                if (not player.bustSecond):
-                    player.secondHandCard.append(self.theDeck.draw())
+            if isinstance(player, Player.__class__):
+                if player.split:
+                    if (not player.bust):
+                        player.firstHandCard.append(self.theDeck.draw())
+                    if (not player.bustSecond):
+                        player.secondHandCard.append(self.theDeck.draw())
 
         else:  # used for initializing the game
             # For the number of players
@@ -80,7 +82,7 @@ class Dealer:
             while (self.stand == False and self.bust != True):
 
                 # Dealer hits until the dealer has 17 or higher cards
-                while (np.sum(np.asarray(self.firstHandCard)) < 17):
+                if (np.sum(np.asarray(self.firstHandCard)) < 17):
                     self.hit()
 
                 # If the dealer has over 21 cards, dealer busts otherwise stands.
@@ -132,3 +134,7 @@ class Dealer:
             i.currentBet = 0
             i.stand = False
             i.bust = False
+            i.secondHandCard = []
+            i.bustSecond = False
+            i.didDouble = False
+            i.split = False

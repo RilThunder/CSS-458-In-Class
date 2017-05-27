@@ -60,8 +60,8 @@ class Player:
 
     def play_split(self):
         if len(self.firstHandCard) == 2 and self.firstHandCard[0] == self.firstHandCard[1]:
-            return True
-
+            if self.firstHandCard[0] == 8:
+                return True
 
     """""
     This is the split method of the Player
@@ -100,6 +100,13 @@ class Player:
     def playNormal(self):
         self.makeTheBet()  # inside the loop, initially set to false and bust is not true initially.
         while (self.stand == False and self.bust != True):
+            if (np.sum(np.asarray(self.firstHandCard)) > 21):
+                self.bust = True
+                break
+            else:
+                self.stand = True
+                break
+
             # The player will double when the card reach 11
             if np.sum(np.asarray(self.firstHandCard) == 11):
                 self.double()
@@ -107,6 +114,9 @@ class Player:
                 if (np.sum(np.asarray(self.firstHandCard)) > 21):
                     self.bust = True
                 break
+            sum = np.sum(np.asarray(self.firstHandCard))
+            #  if (sum )
+
                 # checking to see if the sum of the current cards is less than 17
             # if it is then we hit.
             while (np.sum(np.asarray(self.firstHandCard)) < 17 and self.stand == False):
@@ -114,11 +124,6 @@ class Player:
                 self.hit()
                 # if the sum of the currecnt cards is more than 21
                 # then we set bus = True. Or they stand.
-            if (np.sum(np.asarray(self.firstHandCard)) > 21):
-                self.bust = True
-            else:
-                self.stand = True
-                # self.dealer.deal(True, self)
 
     """
     This method is used to determinehow much the player will bet for each round
