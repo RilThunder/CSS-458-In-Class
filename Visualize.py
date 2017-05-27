@@ -138,6 +138,39 @@ def check(listPlayer, theDealer, numberOfGame, numberOfRound):
     print("Total chips at the moment " + str(listPlayer[0].numOfChips))
     print()
 
-
+def playRound():
+    
+    # Initialize the Dealer for this Simulation
+    theDealer = Dealer(None, Global.NUMBER_OF_DECKS)
+    
+    # Initialize the Player(s) for this simulation
+    listOfPlayer = []
+    for i in range(Global.NUMBER_OF_PLAYER): # Player number is decided on NUMBER_OF_PLAYER
+        player = Player(theDealer, Global.WAY_TO_PLAY)
+        listOfPlayer.append(player)  # Each player now have this dealer
+        
+    # Asigning the list of player back to the dealer
+    theDealer.listOfPlayer = listOfPlayer
+    # Shuffle the deck before entering the game
+    theDealer.theDeck.shuffle()
+    # Initialize the Game, by dealing 2 cards for every player(s)
+    # and the dealer.
+    theDealer.deal(False, None)
+    # Player(s) play until they Stand or Bust
+    for j in range(Global.NUMBER_OF_PLAYER):
+        print('Player ' +str(j + 1) + ' starts with ' + str(listOfPlayer[j].firstHandCard))
+        listOfPlayer[j].play()
+        print('Player ' +str(j + 1) + 'ends with' + str(listOfPlayer[j].firstHandCard))
+        if listOfPlayer[j].bust == True:
+            print('Player ' +str(j + 1) + ' Bust!')
+    # Dealer play until dealer Stand or Bust
+    print('Dealer starts with ' + str(listOfPlayer[j].firstHandCard))
+    theDealer.play()
+    print('Dealer ends with '+ str(listOfPlayer[j].firstHandCard))
+    if theDealer.bust == True:
+        print('Dealer Bust!')
+    theDealer.collectChip()
+    # Remove cards from player and dealer and start empty again
+    theDealer.refresh()
 
 main()
