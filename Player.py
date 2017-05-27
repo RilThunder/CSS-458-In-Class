@@ -18,7 +18,7 @@ class Player:
         self.firstHandCard = []
         self.numOfChips = Global.STARTING_CHIPS
         self.dealer = Dealer
-        self.confidenceLevel = .5
+        self.confidenceLevel = Global.BASE_CONFIDENT
         self.choice = wayToPlay
         self.didDouble = False
 
@@ -61,8 +61,8 @@ class Player:
     def playNormal(self):
         self.makeTheBet()  # inside the loop, initially set to false and bust is not true initially.
         while (self.stand == False and self.bust != True):
-            # The player will double when the card reach 11
-            if np.sum(np.asarray(self.firstHandCard) == 11):
+            # The player will double when the sum of card is in the range 9 - 11
+            if np.sum(np.asarray(self.firstHandCard)) <= 11 and np.sum(np.asarray(self.firstHandCard)) >= 9:
                 self.double()
                 self.hit()
                 if (np.sum(np.asarray(self.firstHandCard)) > 21):
@@ -75,16 +75,22 @@ class Player:
                 self.hit()
                 # if the sum of the currecnt cards is more than 21
                 # then we set bus = True. Or they stand.
-            if (np.sum(np.asarray(self.firstHandCard)) > 21):
-                self.bust = True
-            else:
-                # Should not stand when after drawing one card and the total card
-                # is still less than 17
-                if (np.sum.np.asarray(self.firstHandCard) < 17):
-                    continue
+                if np.sum(np.asarray(self.firstHandCard) > 21):
+                    for i in range(np.size(np.asarray(self.firstHandCard))):
+                        if self.firstHandCard[i] == 11:
+                            self.firstHandCard[i] = 1
+                            break
+
+                if (np.sum(np.asarray(self.firstHandCard)) > 21):
+                    self.bust = True
                 else:
-                    self.stand = True
-                # self.dealer.deal(True, self)
+                    # Should not stand when after drawing one card and the total card
+                    # is still less than 17
+                    if (np.sum.np.asarray(self.firstHandCard) < 17):
+                        continue
+                    else:
+                        self.stand = True
+                        # self.dealer.deal(True, self)
 
     """
     This method is used to determine how much the player will bet for each round
@@ -108,6 +114,13 @@ class Player:
     """
 
     def play(self):
+        if np.sum(np.asarray(self.firstHandCard) > 21):
+            for i in range(np.size(np.asarray(self.firstHandCard))):
+                if self.firstHandCard[i] == 11:
+                    self.firstHandCard[i] = 1
+                    break
+
+
         if self.choice == 1:
             self.playWithOdds()
         else:
@@ -135,6 +148,11 @@ class Player:
                     self.hit()
             else:
                 self.stand = True
+            if np.sum(np.asarray(self.firstHandCard) > 21):
+                for i in range(np.size(np.asarray(self.firstHandCard))):
+                    if self.firstHandCard[i] == 11:
+                        self.firstHandCard[i] = 1
+                        break
             if (np.sum(np.asarray(self.firstHandCard)) > 21):
                 self.bust = True
 
@@ -167,5 +185,10 @@ class Player:
                 self.hit()
             else:
                 self.stand = True
+            if np.sum(np.asarray(self.firstHandCard) > 21):
+                for i in range(np.size(np.asarray(self.firstHandCard))):
+                    if self.firstHandCard[i] == 11:
+                        self.firstHandCard[i] = 1
+                        break
             if (np.sum(np.asarray(self.firstHandCard)) > 21):
                 self.bust = True

@@ -15,4 +15,5 @@ DEALER_SOFT_SEVENTEEN = False   # Assign soft17 rule for the Dealer
 WAY_TO_PLAY = 1
 CHANCE_TO_DOUBLE = 0.25
 CHANCE_TO_HIT = 0.5
+BASE_CONFIDENT = 0.5
 #playerSeen = np.array()
