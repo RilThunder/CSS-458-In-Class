@@ -14,15 +14,12 @@ ratio = []
 wins = []
 
 # Initialize the Plot Figure to plot the data
-#plt.figure(figsize=(20,10))
-figure, ((pie1, pie2), (pie3, pie4)) = plt.subplots(2, 2, sharex='col', sharey='row')
-fig1 = plt.gcf()
-fig1.canvas.set_window_title('Win/Loss Ratio')
-pie_list = [pie1, pie2, pie3, pie4]
+fig = plt.figure(figsize=(22,11))
+pie_size = [[0.545, 0.50, 0.2, 0.3], [0.545, 0.05, 0.2, 0.3],
+            [0.790, 0.50, 0.2, 0.3], [0.790, 0.05, 0.2, 0.3]]
 
-fig2 = plt.figure()
-fig2 = plt.gcf()
-fig2.canvas.set_window_title('Numbers for Simulation')
+fig = plt.gcf()
+fig.canvas.set_window_title('Blackjack Analysis')
 
 def main():
     global wins
@@ -31,7 +28,7 @@ def main():
     global tie
     global numberOfRound
     numberOfGame = 0
-    Simulation_Variation = [1, 2, 3, 1]
+    Simulation_Variation = [1, 2, 3, 2]
     
     """
     # Initialize the Plot Figure to plot the data
@@ -47,6 +44,19 @@ def main():
         del ratio[:]
         Global.WAY_TO_PLAY = Simulation_Variation[num_sim]
         
+        # Declaring the Axes to be used in Figure
+        ax1 = fig.add_axes((0.035, 0.50, 0.2, 0.3))
+        ax1.axis([1, Global.NUMBER_OF_SIMULATION, 0.0, 1.0])
+        ax1.set_title('Win Ratio vs Number of Games')
+        ax1.set_xlabel('Number of Games')
+        ax1.set_ylabel('Win Ratio')
+        ax2 = fig.add_axes((0.280, 0.50, 0.2, 0.3))
+        ax2.axis([1, Global.NUMBER_OF_SIMULATION, 0, Global.NUMBER_OF_SIMULATION])
+        ax2.set_title('Number of Wins vs Number of Games')
+        ax2.set_xlabel('Number of Games')
+        ax2.set_ylabel('Number of Wins')
+
+
         while (numberOfGame < Global.NUMBER_OF_SIMULATION):
             # Reset the statistics for every new game
             win = 0
@@ -92,47 +102,40 @@ def main():
             ratio.append(float(win) / (Global.NUMBER_OF_ROUNDS))
             # Finished one whole simulation
     
-            plotNumberOfGame(fig2, numberOfGame, wins)
+            plotNumberOfGame(ax1, ax2, numberOfGame, wins)
             numberOfGame += 1
             
         print("--------------------------------------")
         print(num_sim)
         if(num_sim < 3):
-            fig2.clf()
-        plotPieChart(pie_list, num_sim, ratio)
+            ax1.cla()
+            ax2.cla()
+        plotPieChart(fig, pie_size, num_sim, ratio)
 
     plt.show()
 
-def plotPieChart(pie_list, i, ratio):
+def plotPieChart(fig, pie_size, i, ratio):
     win_ratio = np.average(ratio)
     loss_ratio = 1 - np.average(ratio)
     win_loss_ratio = np.array([win_ratio, loss_ratio])
-    pie_list[i].pie(win_loss_ratio, labels = ['Win', 'Loss'], \
-                    colors = ['gold', 'yellowgreen'], autopct='%1.1f%%')#, \
-                    #frame = (0.08, 0.55, 0.4, 0.4))
-    #pie_list[i].legend(labels)
+    current_pie = plt.axes(pie_size[i])
+    current_pie.pie(win_loss_ratio, labels = ['Win', 'Loss'], \
+                    colors = ['gold', 'yellowgreen'], autopct='%1.1f%%')
+    labels = ['Win', 'Loss']
+    current_pie.legend(labels)
     return 0
 
-def plotNumberOfGame(fig2, numberOfGame, wins):
-    # Declaring the Axes to be used in Fig1
-    ax1 = fig2.add_axes((0.08, 0.55, 0.4, 0.4))
-    ax1.axis([1, Global.NUMBER_OF_SIMULATION, 0.0, 1.0])
-    ax1.set_title('Win Ratio vs Number of Games')
-    ax1.set_xlabel('Number of Games')
-    ax1.set_ylabel('Win Ratio')
-
-    ax2 = fig2.add_axes((0.58, 0.55, 0.4, 0.4))
-    ax2.axis([1, Global.NUMBER_OF_SIMULATION, 0, Global.NUMBER_OF_SIMULATION])
-    ax2.set_title('Number of Wins vs Number of Games')
-    ax2.set_xlabel('Number of Games')
-    ax2.set_ylabel('Number of Wins')
-    # Plot the first axes in Fig1
+def plotNumberOfGame(ax1, ax2, numberOfGame, wins):
+    
+    # Plot the first axes in Fig
     ax1.plot(numberOfGame, ratio[numberOfGame], '-.', color='b')
     ax1.plot(range(numberOfGame + 1), ratio, marker='.', color='r')
-    # Plot the second axes in Fig1
+    
+    # Plot the second axes in Fig
     ax2.bar(range(numberOfGame + 1), wins)
+    
     plt.pause(0.005)  # Pause 0.001 to create interval between every plot
-    fig2.show()  # Display Fig1
+    fig.show()  # Display Fig1
 
 def check(listPlayer, theDealer, numberOfGame, numberOfRound):
     global win
@@ -160,11 +163,7 @@ def check(listPlayer, theDealer, numberOfGame, numberOfRound):
             if (theDealer.bust and listPlayer[0].bust):
                 print("The player Busted first")
             lose += 1
-    """
-    plt.plot(numberOfRound+1, win/(numberOfRound+1.), marker='o', color='r')
-    plt.pause(0.01)
-    plt.show()
-    """
+
     # Sample output
     print()
 
