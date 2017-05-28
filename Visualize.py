@@ -24,7 +24,10 @@ pie_size = [[0.535, 0.46, 0.23, 0.37], [0.535, 0.03, 0.23, 0.37],
 
 fig = plt.gcf()
 fig.canvas.set_window_title('BLACKJACK SIMULATION')
-
+filename = 'MainTextFile.txt'
+file = open(filename, 'w')
+playOneRound = 'playOneRoundDetail.txt'
+detailFile = open(playOneRound, 'w')
 def main():
     global wins
     global win
@@ -34,10 +37,28 @@ def main():
     global numberOfRound
     global chip
     global chips
+    global file
     Simulation_Variation = [1, 2, 3, 1]
-      
+
     # While loops until Number of Simulation is met
     for numberOfSim in range(4):
+        if numberOfSim == 1:
+            file.write('We are using the playing with odds method')
+            file.write('\n')
+            file.write('This is like calculating the remaining cards and determine if it is best to hit')
+
+        else:
+            if numberOfSim == 2:
+                file.write('We are using the playing random method')
+                file.write('\n')
+                file.write('This is like flipping a coin where we generate a random number'
+                           ' and determine if we should continue or not')
+            else:
+                file.write('We are using the playing normal method')
+                file.write('\n')
+                file.write('This is a set of predefined way that the player can play Black Jack')
+        file.write('\n')
+
         numberOfGame = 0
         del wins[:]
         del ratio[:]
@@ -195,12 +216,15 @@ def check(listPlayer, theDealer, numberOfGame, numberOfRound):
     global chip
     global chips
     global win_round
-    
-    print("For game " + str(numberOfGame + 1) + " and round " + str(
-        numberOfRound + 1) + ", here are the results ")
-    print("The first player had a total of " + str(np.sum(np.asarray(listPlayer[0].firstHandCard))))
-    print("The dealer had a total of " + str(np.sum(np.asarray(theDealer.firstHandCard))))
+    global file
+    file.write("For game " + str(numberOfGame + 1) + " and round " + str(
 
+        numberOfRound + 1) + ", here are the results ")
+    file.write('\n')
+    file.write("The first player had a total of " + str(np.sum(np.asarray(listPlayer[0].firstHandCard))))
+    file.write('\n')
+    file.write("The dealer had a total of " + str(np.sum(np.asarray(theDealer.firstHandCard))))
+    file.write('\n')
     print()
     # Check to see if the first player win or lose this round
     # The player win when the player haven't bust and the dealer already busted
@@ -215,23 +239,49 @@ def check(listPlayer, theDealer, numberOfGame, numberOfRound):
             tie += 1
         else:
             if (theDealer.bust and listPlayer[0].bust):
-                print("The player Busted first")
+                file.write("The player Busted first")
+                file.write('\n')
             lose += 1
 
     chip += listPlayer[0].numOfChips
     win_round.append(win)
     
     # Sample output
-    print()
-    print("Total number of win, lose and tie for player 1 is")
-    print("Win: " + str(win))
-    print("Lose " + str(lose))
-    print("Tie: " + str(tie))
-    print("Total chips at the moment " + str(listPlayer[0].numOfChips))
-    print()
+    file.write('\n')
+    file.write("Total number of win, lose and tie for player 1 is")
+    file.write('\n')
+    file.write("Win: " + str(win))
+    file.write('\n')
+    file.write("Lose " + str(lose))
+    file.write('\n')
+    file.write("Tie: " + str(tie))
+    file.write('\n')
+    file.write("Total chips at the moment " + str(listPlayer[0].numOfChips))
+    file.write('\n')
 
 def playRound():
-    
+    global detailFile
+
+    if Global.WAY_TO_PLAY == 1:
+        detailFile.write('We are using the playing with odds method')
+        detailFile.write('\n')
+        detailFile.write('This is like calculating the remaining cards and determine if it is best to hit')
+
+    else:
+        if Global.WAY_TO_PLAY == 2:
+            detailFile.write('We are using the playing random method')
+            detailFile.write('\n')
+            detailFile.write('This is like flipping a coin where we generate a random number'
+                             ' and determine if we should continue or not')
+        else:
+            detailFile.write('We are using the playing normal method')
+            detailFile.write('\n')
+            detailFile.write('This is a set of predefined way that the player can play Black Jack')
+    detailFile.write('\n')
+    detailFile.write('For this detail round, we are using ' + str(Global.NUMBER_OF_DECKS))
+    detailFile.write('\n')
+    detailFile.write('We also have ' + str(Global.NUMBER_OF_PLAYER) + ' players')
+
     # Initialize the Dealer for this Simulation
     theDealer = Dealer(None, Global.NUMBER_OF_DECKS)
     
@@ -250,28 +300,40 @@ def playRound():
     theDealer.deal(False, None)
     # Player(s) play until they Stand or Bust
     for j in range(Global.NUMBER_OF_PLAYER):
-        print('Player ' + str(j + 1) + ' starts with ' + str(listOfPlayer[j].firstHandCard))
+        detailFile.write('Player ' + str(j + 1) + ' starts with ' + str(listOfPlayer[j].firstHandCard))
+        detailFile.write('\n')
         listOfPlayer[j].play()
-        print('Player ' + str(j + 1) + 'ends with' + str(listOfPlayer[j].firstHandCard))
+        detailFile.write('Player ' + str(j + 1) + ' ends with' + str(listOfPlayer[j].firstHandCard))
+        detailFile.write('\n')
         if listOfPlayer[j].bust == True:
-            print('Player ' +str(j + 1) + ' Bust!')
+            detailFile.write('Player ' + str(j + 1) + ' Bust!')
+            detailFile.write('\n')
     # Dealer play until dealer Stand or Bust
-    print('Dealer starts with ' + str(theDealer.firstHandCard))
+    detailFile.write('Dealer starts with ' + str(theDealer.firstHandCard))
+    detailFile.write('\n')
     theDealer.play()
-    print('Dealer ends with '+ str(theDealer.firstHandCard))
+    detailFile.write('Dealer ends with ' + str(theDealer.firstHandCard))
+    detailFile.write('\n')
     if theDealer.bust == True:
-        print('Dealer Bust!')
+        detailFile.write('Dealer Bust!')
+        detailFile.write('\n')
     for j in range(Global.NUMBER_OF_PLAYER):
         if ((np.sum(np.asarray(listOfPlayer[j].firstHandCard)) > np.sum(np.asarray(theDealer.firstHandCard))) and listOfPlayer[j].bust == False) \
                 or (theDealer.bust and listOfPlayer[j].bust == False):
-            print('Player ' + str(j+1) + ' won!')
+            detailFile.write('Player ' + str(j + 1) + ' won!')
+            detailFile.write('\n')
         else:
-            if (np.sum(np.asarray(listOfPlayer[0].firstHandCard)) == np.sum(np.asarray(theDealer.firstHandCard))):
-                print('Player ' + str(j+1) + ' tied the dealer!')
+            if (np.sum(np.asarray(listOfPlayer[j].firstHandCard)) == np.sum(np.asarray(theDealer.firstHandCard))):
+                detailFile.write('Player ' + str(j + 1) + ' tied the dealer!')
+                detailFile.write('\n')
             else:
-                print('Player ' + str(j+1) + ' lost!')
+                detailFile.write('Player ' + str(j + 1) + ' lost!')
+                detailFile.write('\n')
     theDealer.collectChip()
     # Remove cards from player and dealer and start empty again
     theDealer.refresh()
 
 main()
+# playRound()
+file.close()
+detailFile.close()
