@@ -116,8 +116,9 @@ class Dealer:
         self.deal(True, self)
 
     """""
-    Refresh means get rid of all cards the dealer and player having at the moment
-    Also reset the boolean attributes indicating stand or bust of the dealer and players
+    Refresh can also be called as clear which means, get rid of all cards the 
+    dealer and player having at the moment Also reset the boolean attributes 
+    indicating stand or bust of the dealer and players
     """""
 
     def refresh(self):
