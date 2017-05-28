@@ -126,6 +126,5 @@ class Dealer:
         self.stand = False
         for i in self.listOfPlayer:
             i.firstHandCard = []
-
             i.stand = False
             i.bust = False

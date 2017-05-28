@@ -34,7 +34,7 @@ def main():
     global numberOfRound
     global chip
     global chips
-    Simulation_Variation = [1, 2, 1, 2]
+    Simulation_Variation = [1, 2, 3, 1]
       
     # While loops until Number of Simulation is met
     for numberOfSim in range(4):
