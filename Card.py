@@ -7,6 +7,7 @@ class Card:
     A Deck is 52 cards so total cards will be 52 * numberOfDeck  
     """""
     def __init__(self, numberOfDeck):
+        # creatr an array list of cards
         self.listOfCard = []
         for i in range(numberOfDeck):
             for numberOfSuit in range(4):
@@ -24,7 +25,7 @@ class Card:
     This method is used to shuffle the array of card
     """""
     def shuffle(self):
-        # Use Numpy Random Shuffle to shuffle the cards
+        # Use Numpy Random Shuffle to shuffle the list of cards
         np.random.shuffle(self.listOfCard)
 
 
