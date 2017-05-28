@@ -41,12 +41,14 @@ class Player:
 
     def double(self):
         # player's probability of choosing to double down
-        # In our simulation we are going to double between 9 to 11 inclusive.
-
+        
+        
+        # checking the total in the players card
         sum = np.sum(np.asarray(self.firstHandCard))
 
         self.didDouble = True
-        self.currentBet = self.currentBet * 2
+        # double the original bet. 
+        self.currentBet = self.currentBet * 2 
         self.stand = True
 
 
@@ -139,6 +141,7 @@ class Player:
 
     def playWithRandom(self):
         self.makeTheBet()
+        # loop to  check to see the players initial position.
         while (self.stand == False and self.bust != True):
             self.dealer.checkLengthCard()
 
