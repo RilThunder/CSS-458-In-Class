@@ -28,7 +28,7 @@ def main():
     global tie
     global numberOfRound
     numberOfGame = 0
-    Simulation_Variation = [1, 2, 3, 2]
+    Simulation_Variation = [1, 2, 1, 2]
     
     """
     # Initialize the Plot Figure to plot the data
