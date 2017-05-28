@@ -74,20 +74,20 @@ class Player:
                 break
                 # checking to see if the sum of the current cards is less than 17
             # if it is then we hit.
-            while (np.sum(np.asarray(self.firstHandCard)) < 17 and self.stand == False):
+                #    while (np.sum(np.asarray(self.firstHandCard)) < 17 and self.stand == False):
                 # Maybe put a condition of when to double
-                self.dealer.checkLengthCard()
-                self.hit()
+                #        self.dealer.checkLengthCard()
+            self.hit()
                 # if the sum of the currecnt cards is more than 21
                 # then we set bus = True. Or they stand.
-                if np.sum(np.asarray(self.firstHandCard) > 21):
-                    for i in range(np.size(np.asarray(self.firstHandCard))):
-                        if self.firstHandCard[i] == 11:
-                            self.firstHandCard[i] = 1
-                            break
-                if (np.sum(np.asarray(self.firstHandCard)) > 21):
-                    self.bust = True
-                else:
+            if np.sum(np.asarray(self.firstHandCard) > 21):
+                for i in range(np.size(np.asarray(self.firstHandCard))):
+                    if self.firstHandCard[i] == 11:
+                        self.firstHandCard[i] = 1
+                        break
+            if (np.sum(np.asarray(self.firstHandCard)) > 21):
+                self.bust = True
+            else:
                     # Should not stand when after drawing one card and the total card
                     # is still less than 17
                     if (np.sum(np.asarray(self.firstHandCard) < 17)):
