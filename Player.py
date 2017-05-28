@@ -44,9 +44,9 @@ class Player:
         # In our simulation we are going to double between 9 to 11 inclusive.
 
         sum = np.sum(np.asarray(self.firstHandCard))
-        if sum >= 9 and sum <= 11:
-            self.didDouble = True
-            self.currentBet = self.currentBet * 2
+
+        self.didDouble = True
+        self.currentBet = self.currentBet * 2
         self.stand = True
 
 
@@ -85,7 +85,6 @@ class Player:
                         if self.firstHandCard[i] == 11:
                             self.firstHandCard[i] = 1
                             break
-
                 if (np.sum(np.asarray(self.firstHandCard)) > 21):
                     self.bust = True
                 else:
@@ -104,9 +103,9 @@ class Player:
     def makeTheBet(self):
         if (self.confidenceLevel > .5 and self.currentBet < Global.MAX_BET):
             self.currentBet += round(self.currentBet * (self.confidenceLevel - .5))
-
         elif (self.confidenceLevel < .5 and self.currentBet > Global.BUY_IN):
             self.currentBet -= round(self.currentBet * (.5 - self.confidenceLevel))
+        # Need to make sure the bet does not go over the limit
         if (self.currentBet < Global.BUY_IN):
             self.currentBet = Global.BUY_IN
         if (self.currentBet > Global.MAX_BET):
@@ -124,8 +123,6 @@ class Player:
                 if self.firstHandCard[i] == 11:
                     self.firstHandCard[i] = 1
                     break
-
-
         if self.choice == 1:
             self.playWithOdds()
         else:
@@ -146,15 +143,19 @@ class Player:
             self.dealer.checkLengthCard()
 
             choice = random.random()
+            # Can vary the chance to hit
             if choice <= Global.CHANCE_TO_HIT:
                 self.hit()
                 # Should we double ? There is a 0.25 chance that we will double
                 newChoice = random.random()
+                # Probability to double instead
                 if newChoice <= Global.CHANCE_TO_DOUBLE:
                     self.double()
                     self.hit()
+
             else:
                 self.stand = True
+            # Check for ace
             if np.sum(np.asarray(self.firstHandCard) > 21):
                 for i in range(np.size(np.asarray(self.firstHandCard))):
                     if self.firstHandCard[i] == 11:
@@ -175,12 +176,12 @@ class Player:
         while (self.stand == False and self.bust != True):
             # Need to check if busted as well. If busted then 21 - totalValue will be negative
             # Calculating the remaning cards to determine the probabiltity
+            # Need to make sure dealer have enough card
             self.dealer.checkLengthCard()
             totalValue = np.sum(np.asarray(self.firstHandCard))
             remainingWeNeed = 21 - totalValue
             lengthOfTotal = np.size(self.dealer.theDeck.listOfCard)
-            if (lengthOfTotal == 0):
-                print('Check')
+
             count = 0.0
             for i in self.dealer.theDeck.listOfCard:
                 if i <= remainingWeNeed:
@@ -191,12 +192,15 @@ class Player:
             # if the probability is greater than or eqault to the choice then
             # the player continues to hit or if not then they will stand. 
             if probWeShouldContinue >= choice:
+                # Best time to double
                 if sum >= 9 and sum <= 11:
                     self.double()
                 self.hit()
             else:
                 self.stand = True
+
             if np.sum(np.asarray(self.firstHandCard) > 21):
+                #Checking for cases when there is ace in the list of Card
                 for i in range(np.size(np.asarray(self.firstHandCard))):
                     if self.firstHandCard[i] == 11:
                         self.firstHandCard[i] = 1
