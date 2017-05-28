@@ -56,6 +56,7 @@ def main():
         ax2.set_xlabel('Number of Games')
         ax2.set_ylabel('Number of Wins')
 
+        current_pie = plt.axes(pie_size[num_sim])
 
         while (numberOfGame < Global.NUMBER_OF_SIMULATION):
             # Reset the statistics for every new game
@@ -103,6 +104,7 @@ def main():
             # Finished one whole simulation
     
             plotNumberOfGame(ax1, ax2, numberOfGame, wins)
+            plotPieChart(current_pie, ratio)
             numberOfGame += 1
             
         print("--------------------------------------")
@@ -110,20 +112,27 @@ def main():
         if(num_sim < 3):
             ax1.cla()
             ax2.cla()
-        plotPieChart(fig, pie_size, num_sim, ratio)
+        label_PieChart(current_pie, ratio)
 
     plt.show()
 
-def plotPieChart(fig, pie_size, i, ratio):
+def label_PieChart(current_pie, ratio):
     win_ratio = np.average(ratio)
     loss_ratio = 1 - np.average(ratio)
     win_loss_ratio = np.array([win_ratio, loss_ratio])
-    current_pie = plt.axes(pie_size[i])
     current_pie.pie(win_loss_ratio, labels = ['Win', 'Loss'], \
                     colors = ['gold', 'yellowgreen'], autopct='%1.1f%%')
     labels = ['Win', 'Loss']
     current_pie.legend(labels)
-    return 0
+
+def plotPieChart(current_pie, ratio):
+    win_ratio = np.average(ratio)
+    loss_ratio = 1 - np.average(ratio)
+    win_loss_ratio = np.array([win_ratio, loss_ratio])
+    current_pie.pie(win_loss_ratio, \
+                    colors = ['gold', 'yellowgreen'])
+    labels = ['Win', 'Loss']
+    current_pie.legend(labels)
 
 def plotNumberOfGame(ax1, ax2, numberOfGame, wins):
     
