@@ -69,6 +69,9 @@ class Player:
                 if (np.sum(np.asarray(self.firstHandCard)) > 21):
                     self.bust = True
                 break
+            if np.sum(np.asarray(self.firstHandCard)) >= 17 and np.sum(np.asarray(self.firstHandCard)) <= 21:
+                self.stand = True
+                break
                 # checking to see if the sum of the current cards is less than 17
             # if it is then we hit.
             while (np.sum(np.asarray(self.firstHandCard)) < 17 and self.stand == False):
@@ -141,6 +144,7 @@ class Player:
         self.makeTheBet()
         while (self.stand == False and self.bust != True):
             self.dealer.checkLengthCard()
+
             choice = random.random()
             if choice <= Global.CHANCE_TO_HIT:
                 self.hit()
