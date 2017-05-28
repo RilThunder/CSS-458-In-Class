@@ -38,11 +38,11 @@ def main():
     """
     
     # While loops until Number of Simulation is met
-    for num_sim in range(4):
+    for numberOfSim in range(4):
         numberOfGame = 0
         del wins[:]
         del ratio[:]
-        Global.WAY_TO_PLAY = Simulation_Variation[num_sim]
+        Global.WAY_TO_PLAY = Simulation_Variation[numberOfSim]
         
         # Declaring the Axes to be used in Figure
         ax1 = fig.add_axes((0.035, 0.50, 0.2, 0.3))
@@ -56,7 +56,7 @@ def main():
         ax2.set_xlabel('Number of Games')
         ax2.set_ylabel('Number of Wins')
 
-        current_pie = plt.axes(pie_size[num_sim])
+        current_pie = plt.axes(pie_size[numberOfSim])
 
         while (numberOfGame < Global.NUMBER_OF_SIMULATION):
             # Reset the statistics for every new game
@@ -104,19 +104,29 @@ def main():
             # Finished one whole simulation
     
             plotNumberOfGame(ax1, ax2, numberOfGame, wins)
-            plotPieChart(current_pie, ratio)
+            plotPieChart(current_pie, ratio, numberOfSim, numberOfGame, Global.WAY_TO_PLAY)
             numberOfGame += 1
             
         print("--------------------------------------")
-        print(num_sim)
-        if(num_sim < 3):
+        print(numberOfSim)
+        if(numberOfSim < 3):
             ax1.cla()
             ax2.cla()
-        label_PieChart(current_pie, ratio)
+        label_PieChart(current_pie, ratio, numberOfSim, Global.WAY_TO_PLAY)
 
     plt.show()
 
-def label_PieChart(current_pie, ratio):
+def label_PieChart(current_pie, ratio, numberOfSim, WAY_TO_PLAY):
+    if(WAY_TO_PLAY == 1):
+        playing = 'with odd'
+    elif(WAY_TO_PLAY == 2):
+        playing = 'randomly'
+    else:
+        playing = 'normally'
+
+    current_pie.set_title('Simulation ' + str(numberOfSim + 1) + \
+                            '\n' + 'Player playing ' + playing)
+
     win_ratio = np.average(ratio)
     loss_ratio = 1 - np.average(ratio)
     win_loss_ratio = np.array([win_ratio, loss_ratio])
@@ -125,7 +135,18 @@ def label_PieChart(current_pie, ratio):
     labels = ['Win', 'Loss']
     current_pie.legend(labels)
 
-def plotPieChart(current_pie, ratio):
+def plotPieChart(current_pie, ratio, numberOfSim, numberOfGame, WAY_TO_PLAY):
+    if(WAY_TO_PLAY == 1):
+        playing = 'with odd'
+    elif(WAY_TO_PLAY == 2):
+        playing = 'randomly'
+    else:
+        playing = 'normally'
+
+    current_pie.set_title('Simulation ' + str(numberOfSim + 1) + \
+                            ' Round ' + str(numberOfGame + 1) + '\n' + 
+                            'Player playing ' + playing)
+
     win_ratio = np.average(ratio)
     loss_ratio = 1 - np.average(ratio)
     win_loss_ratio = np.array([win_ratio, loss_ratio])
