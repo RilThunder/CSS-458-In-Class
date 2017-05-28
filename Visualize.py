@@ -178,7 +178,7 @@ def plotNumberOfGame(ax1, ax2, ax3, numberOfGame, win_round, wins, chips):
 
     ax3.plot(range(1, Global.NUMBER_OF_ROUNDS+1), win_round, marker='.', color= 'b')
     
-    plt.pause(0.025)  # Pause 0.001 to create interval between every plot
+    plt.pause(0.06)  # Pause 0.001 to create interval between every plot
     fig.show()  # Display Fig1
 
     ax3.cla()
