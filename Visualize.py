@@ -1,6 +1,5 @@
 import matplotlib.pyplot as plt
 import numpy as np
-
 import Global
 from Dealer import Dealer
 from Player import Player
@@ -14,6 +13,8 @@ ratio = []
 wins = []
 win_round = []
 chips = []
+win_ratio_list = []
+loss_ratio_list = []
 
 # Initialize the Plot Figure to plot the data
 fig = plt.figure(figsize=(15,9))
@@ -38,6 +39,8 @@ def main():
     global chip
     global chips
     global file
+    global win_ratio_list
+    global loss_ratio_list
     Simulation_Variation = [1, 2, 3, 1]
 
     # While loops until Number of Simulation is met
@@ -63,6 +66,8 @@ def main():
         del wins[:]
         del ratio[:]
         del chips[:]
+        del win_ratio_list[:]
+        del loss_ratio_list[:]
         Global.WAY_TO_PLAY = Simulation_Variation[numberOfSim]
         
         # Declaring the Axes to be used in Figure      
@@ -141,13 +146,16 @@ def main():
         if(numberOfSim < 3):
             ax1.cla()
             ax2.cla()
-        label_PieChart(current_pie, ratio, numberOfSim, Global.WAY_TO_PLAY)
+        label_PieChart(current_pie, numberOfSim, Global.WAY_TO_PLAY)
         simu_title.remove()
 
     simu_title = fig.text(0.21, 0.85, 'Simulation: ' + str(numberOfSim+1), fontsize=20)
     plt.show()
 
-def label_PieChart(current_pie, ratio, numberOfSim, WAY_TO_PLAY):
+def label_PieChart(current_pie, numberOfSim, WAY_TO_PLAY):
+    global win_ratio_list
+    global loss_ratio_list
+    
     if(WAY_TO_PLAY == 1):
         playing = 'with odd'
     elif(WAY_TO_PLAY == 2):
@@ -158,8 +166,8 @@ def label_PieChart(current_pie, ratio, numberOfSim, WAY_TO_PLAY):
     current_pie.set_title('Simulation ' + str(numberOfSim + 1) + \
                             '\n' + 'Player playing ' + playing)
 
-    win_ratio = np.average(ratio)
-    loss_ratio = 1 - np.average(ratio)
+    win_ratio = np.average(win_ratio_list)
+    loss_ratio = 1 - np.average(loss_ratio_list)
     win_loss_ratio = np.array([win_ratio, loss_ratio])
     current_pie.pie(win_loss_ratio, labels = ['Win', 'Loss'], \
                     colors = ['yellowgreen', 'gold'], autopct='%1.1f%%')
@@ -167,6 +175,9 @@ def label_PieChart(current_pie, ratio, numberOfSim, WAY_TO_PLAY):
     current_pie.legend(labels, loc = 2)
 
 def plotPieChart(current_pie, ratio, numberOfSim, numberOfGame, WAY_TO_PLAY):
+    global win_ratio_list
+    global loss_ratio_list
+    
     if(WAY_TO_PLAY == 1):
         playing = 'with odd'
     elif(WAY_TO_PLAY == 2):
@@ -179,7 +190,10 @@ def plotPieChart(current_pie, ratio, numberOfSim, numberOfGame, WAY_TO_PLAY):
                             'Player playing ' + playing)
 
     win_ratio = np.average(ratio)
+    win_ratio_list.append(win_ratio)
     loss_ratio = 1 - np.average(ratio)
+    loss_ratio_list.append(win_ratio)
+    
     win_loss_ratio = np.array([win_ratio, loss_ratio])
     current_pie.pie(win_loss_ratio, \
                     colors = ['yellowgreen', 'gold'])
