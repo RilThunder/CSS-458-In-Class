@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 import numpy as np
+
 import Global
 from Dealer import Dealer
 from Player import Player
@@ -16,7 +17,6 @@ chips = []
 win_ratio_list = []
 loss_ratio_list = []
 
-# Initialize the Plot Figure to plot the data
 fig = plt.figure(figsize=(15,9))
 rect = fig.patch
 rect.set_facecolor('white')
@@ -25,10 +25,18 @@ pie_size = [[0.535, 0.46, 0.23, 0.37], [0.535, 0.03, 0.23, 0.37],
 
 fig = plt.gcf()
 fig.canvas.set_window_title('BLACKJACK SIMULATION')
+
+# Variables to write to a text file
 filename = 'MainTextFile.txt'
 file = open(filename, 'w')
 playOneRound = 'playOneRoundDetail.txt'
 detailFile = open(playOneRound, 'w')
+
+"""
+This main method will play the game play jack a constant number of game
+Each game with a constant number of round 
+This will display plots that will show the statistics of using different play method
+"""
 def main():
     global wins
     global win
@@ -41,10 +49,12 @@ def main():
     global file
     global win_ratio_list
     global loss_ratio_list
+    # Different ways to play
     Simulation_Variation = [1, 2, 3, 1]
 
     # While loops until Number of Simulation is met
     for numberOfSim in range(4):
+        # Write to the text file which play method we are using
         if numberOfSim == 1:
             file.write('We are using the playing with odds method')
             file.write('\n')
@@ -152,6 +162,10 @@ def main():
     simu_title = fig.text(0.21, 0.85, 'Simulation: ' + str(numberOfSim+1), fontsize=20)
     plt.show()
 
+
+"""""
+This method is used to label the pie chart in the simulation
+"""""
 def label_PieChart(current_pie, numberOfSim, WAY_TO_PLAY):
     global win_ratio_list
     global loss_ratio_list
@@ -173,6 +187,11 @@ def label_PieChart(current_pie, numberOfSim, WAY_TO_PLAY):
                     colors = ['yellowgreen', 'gold'], autopct='%1.1f%%')
     labels = ['Win', 'Loss']
     current_pie.legend(labels, loc = 2)
+
+
+"""""
+This method is used to plot the pie chart in the simulation
+"""""
 
 def plotPieChart(current_pie, ratio, numberOfSim, numberOfGame, WAY_TO_PLAY):
     global win_ratio_list
@@ -200,6 +219,7 @@ def plotPieChart(current_pie, ratio, numberOfSim, numberOfGame, WAY_TO_PLAY):
     labels = ['Win', 'Loss']
     current_pie.legend(labels, loc = 2)
 
+
 def plotNumberOfGame(ax1, ax2, ax3, numberOfGame, win_round, wins, chips):
     
     # Plot the first axes in Fig
@@ -221,6 +241,12 @@ def plotNumberOfGame(ax1, ax2, ax3, numberOfGame, win_round, wins, chips):
     ax3.set_title('Number of Win vs Number of Rounds')
     ax3.set_xlabel('Number of Rounds')
     ax3.set_ylabel('Number of Win')
+
+
+"""""
+This method is used at the each of each round to check if the player win or lost
+Also to update the global variable to 
+"""""
 
 def check(listPlayer, theDealer, numberOfGame, numberOfRound):
     global win
@@ -273,6 +299,12 @@ def check(listPlayer, theDealer, numberOfGame, numberOfRound):
     file.write("Total chips at the moment " + str(listPlayer[0].numOfChips))
     file.write('\n')
 
+
+""""
+This method is used to show the detail of one round in one game
+It will show what cards each player is having and the dealer's card
+It will show the result of the round as well
+"""""
 def playRound():
     global detailFile
 
@@ -347,7 +379,12 @@ def playRound():
     # Remove cards from player and dealer and start empty again
     theDealer.refresh()
 
+
+# The main method generated figures and play GLobal.NUMBEROFSIMULATIONS with a constant round
 main()
+
+# Uncomment the playRound() method to see the detail of one round
+
 # playRound()
 file.close()
 detailFile.close()

@@ -41,14 +41,12 @@ class Player:
 
     def double(self):
         # player's probability of choosing to double down
-        
-        
-        # checking the total in the players card
+        # In our simulation we are going to double between 9 to 11 inclusive.
+
         sum = np.sum(np.asarray(self.firstHandCard))
 
         self.didDouble = True
-        # double the original bet. 
-        self.currentBet = self.currentBet * 2 
+        self.currentBet = self.currentBet * 2
         self.stand = True
 
 
@@ -62,16 +60,16 @@ class Player:
 
     def playNormal(self):
         self.makeTheBet()  # inside the loop, initially set to false and bust is not true initially.
-        while (self.stand == False and self.bust != True):
+        while self.stand == False and self.bust != True:
             # The player will double when the sum of card is in the range 9 - 11
             self.dealer.checkLengthCard()
-            if np.sum(np.asarray(self.firstHandCard)) <= 11 and np.sum(np.asarray(self.firstHandCard)) >= 9:
+            if 11 >= np.sum(np.asarray(self.firstHandCard)) >= 9:
                 self.double()
                 self.hit()
-                if (np.sum(np.asarray(self.firstHandCard)) > 21):
+                if np.sum(np.asarray(self.firstHandCard)) > 21:
                     self.bust = True
                 break
-            if np.sum(np.asarray(self.firstHandCard)) >= 17 and np.sum(np.asarray(self.firstHandCard)) <= 21:
+            if 17 <= np.sum(np.asarray(self.firstHandCard)) <= 21:
                 self.stand = True
                 break
                 # checking to see if the sum of the current cards is less than 17
@@ -87,12 +85,12 @@ class Player:
                     if self.firstHandCard[i] == 11:
                         self.firstHandCard[i] = 1
                         break
-            if (np.sum(np.asarray(self.firstHandCard)) > 21):
+            if np.sum(np.asarray(self.firstHandCard)) > 21:
                 self.bust = True
             else:
                     # Should not stand when after drawing one card and the total card
                     # is still less than 17
-                    if (np.sum(np.asarray(self.firstHandCard) < 17)):
+                    if np.sum(np.asarray(self.firstHandCard) < 17):
                         continue
                     else:
                         self.stand = True
@@ -103,14 +101,14 @@ class Player:
     Depending on the confidence level, the player will bet more or less
     """
     def makeTheBet(self):
-        if (self.confidenceLevel > .5 and self.currentBet < Global.MAX_BET):
+        if self.confidenceLevel > .5 and self.currentBet < Global.MAX_BET:
             self.currentBet += round(self.currentBet * (self.confidenceLevel - .5))
-        elif (self.confidenceLevel < .5 and self.currentBet > Global.BUY_IN):
+        elif self.confidenceLevel < .5 and self.currentBet > Global.BUY_IN:
             self.currentBet -= round(self.currentBet * (.5 - self.confidenceLevel))
         # Need to make sure the bet does not go over the limit
-        if (self.currentBet < Global.BUY_IN):
+        if self.currentBet < Global.BUY_IN:
             self.currentBet = Global.BUY_IN
-        if (self.currentBet > Global.MAX_BET):
+        if self.currentBet > Global.MAX_BET:
             self.currentBet = Global.MAX_BET
 
     """ 
@@ -141,8 +139,7 @@ class Player:
 
     def playWithRandom(self):
         self.makeTheBet()
-        # loop to  check to see the players initial position.
-        while (self.stand == False and self.bust != True):
+        while self.stand == False and self.bust != True:
             self.dealer.checkLengthCard()
 
             choice = random.random()
@@ -164,7 +161,7 @@ class Player:
                     if self.firstHandCard[i] == 11:
                         self.firstHandCard[i] = 1
                         break
-            if (np.sum(np.asarray(self.firstHandCard)) > 21):
+            if np.sum(np.asarray(self.firstHandCard)) > 21:
                 self.bust = True
 
     """
@@ -176,7 +173,7 @@ class Player:
         self.makeTheBet()
 
         # inside the loop, initially set to false and bust is not true initially.
-        while (self.stand == False and self.bust != True):
+        while self.stand == False and self.bust != True:
             # Need to check if busted as well. If busted then 21 - totalValue will be negative
             # Calculating the remaning cards to determine the probabiltity
             # Need to make sure dealer have enough card
@@ -196,7 +193,7 @@ class Player:
             # the player continues to hit or if not then they will stand. 
             if probWeShouldContinue >= choice:
                 # Best time to double
-                if sum >= 9 and sum <= 11:
+                if 9 <= sum <= 11:
                     self.double()
                 self.hit()
             else:
@@ -208,5 +205,5 @@ class Player:
                     if self.firstHandCard[i] == 11:
                         self.firstHandCard[i] = 1
                         break
-            if (np.sum(np.asarray(self.firstHandCard)) > 21):
+            if np.sum(np.asarray(self.firstHandCard)) > 21:
                 self.bust = True
