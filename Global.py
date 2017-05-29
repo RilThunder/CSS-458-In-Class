@@ -16,4 +16,4 @@ WAY_TO_PLAY = 1  # 3 ways to play. 1 = Play with odds. 2 = play randomly. 3 = pl
 CHANCE_TO_DOUBLE = 0.25  # Used to determine when the play should double in play random
 CHANCE_TO_HIT = 0.5  # Used to determine when the play should hit in play random
 BASE_CONFIDENT = 0.5  # affect how the player will bet
-#playerSeen = np.array()
+
