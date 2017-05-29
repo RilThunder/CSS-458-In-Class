@@ -28,7 +28,7 @@ class Player:
     This is the hit method of the Player.
     When the player call this, dealer will deal the card to the player.
     """""
-
+    # This allows the player to hit and get a card from the dealer
     def hit(self):
         self.dealer.deal(True, self)
         pass
@@ -41,11 +41,12 @@ class Player:
 
     def double(self):
         # player's probability of choosing to double down
-        # In our simulation we are going to double between 9 to 11 inclusive.
+        # The player can choose to double their initial bet
 
         sum = np.sum(np.asarray(self.firstHandCard))
 
         self.didDouble = True
+        # doubling the current bet 
         self.currentBet = self.currentBet * 2
         self.stand = True
 
@@ -61,14 +62,21 @@ class Player:
     def playNormal(self):
         self.makeTheBet()  # inside the loop, initially set to false and bust is not true initially.
         while self.stand == False and self.bust != True:
-            # The player will double when the sum of card is in the range 9 - 11
+            # The player will double when the sum of card 9 and 11
             self.dealer.checkLengthCard()
+            # if the 11 is greater than sum of the first hand and less than or 
+            # equal to 9. 
             if 11 >= np.sum(np.asarray(self.firstHandCard)) >= 9:
+                # calling the double to double their bet and hit.
                 self.double()
                 self.hit()
+                # if the sum of the firsthand array is less than 21 then set
+                # bus to true.
                 if np.sum(np.asarray(self.firstHandCard)) > 21:
                     self.bust = True
                 break
+                # if 17 is less than or equal to the sum of the fristhand card 
+                # array and less than or equal ro 21 then set stand to true. 
             if 17 <= np.sum(np.asarray(self.firstHandCard)) <= 21:
                 self.stand = True
                 break
@@ -101,6 +109,7 @@ class Player:
     Depending on the confidence level, the player will bet more or less
     """
     def makeTheBet(self):
+        # checking for the players confidence interval. 
         if self.confidenceLevel > .5 and self.currentBet < Global.MAX_BET:
             self.currentBet += round(self.currentBet * (self.confidenceLevel - .5))
         elif self.confidenceLevel < .5 and self.currentBet > Global.BUY_IN:
