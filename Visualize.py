@@ -178,7 +178,9 @@ def label_PieChart(current_pie, numberOfSim, WAY_TO_PLAY):
         playing = 'normally'
 
     current_pie.set_title('Simulation ' + str(numberOfSim + 1) + \
-                            '\n' + 'Player playing ' + playing)
+                            '\n' + 'Player playing ' + playing + '\n' +
+                            'Players: ' + str(Global.NUMBER_OF_PLAYER) + \
+                            ' Decks: ' + str(Global.NUMBER_OF_DECKS))
 
     win_ratio = np.average(win_ratio_list)
     loss_ratio = 1 - np.average(loss_ratio_list)
@@ -206,7 +208,9 @@ def plotPieChart(current_pie, ratio, numberOfSim, numberOfGame, WAY_TO_PLAY):
 
     current_pie.set_title('Simulation ' + str(numberOfSim + 1) + \
                             ' Round ' + str(numberOfGame + 1) + '\n' + 
-                            'Player playing ' + playing)
+                            'Player playing ' + playing + '\n' +
+                            'Players: ' + str(Global.NUMBER_OF_PLAYER) + \
+                            ' Decks: ' + str(Global.NUMBER_OF_DECKS))
 
     win_ratio = np.average(ratio)
     win_ratio_list.append(win_ratio)
