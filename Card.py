@@ -17,7 +17,7 @@ class Card:
                 # Add King, Queen Jack:
                 for specialCard in range(3):
                     self.listOfCard.append(10)
-                # Add Ace, the special value will be 11. The player see this will decide
+                # Add Ace, the special value will be 11. The player sees this will decide
                 self.listOfCard.append(11)
         self.listOfCard = np.asarray(self.listOfCard)
 
@@ -41,4 +41,5 @@ class Card:
         
         # Delete that card and create a new array of the old one with the missing of the card
         self.listOfCard = np.delete(self.listOfCard,0)
+        # return the value
         return value
