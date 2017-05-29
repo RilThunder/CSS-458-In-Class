@@ -80,9 +80,11 @@ class Dealer:
     """""
 
     def checkLengthCard(self):
+        # checks the length of the card, to see if it is greater than 2
+        # since there are two cards. 
         if len(self.theDeck.listOfCard) < 2:
             self.theDeck = Card(self.numberDeckUsed)
-            self.theDeck.shuffle()
+            self.theDeck.shuffle()  
 
     """"
     This is the way the dealer will play.
@@ -137,7 +139,8 @@ class Dealer:
     """""
     This is similar to the hit method of the Player in which the dealer will deal himself/herself card
     """""
-
+    
+    # Dealer will hit card based on the scenario
     def hit(self):
         self.deal(True, self)
 
