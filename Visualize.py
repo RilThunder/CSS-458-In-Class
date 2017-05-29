@@ -233,7 +233,9 @@ def plotNumberOfGame(ax1, ax2, ax3, numberOfGame, win_round, wins, chips):
     ax1.plot(range(1, numberOfGame + 2), ratio, marker='.', color= color[0])
     
     # Plot the second axes in Fig
-    ax2.plot(range(1, numberOfGame + 2), chips, marker='.', color= color[0])
+    chips_array = np.array(chips)
+    chips_array[chips_array < 0] = 100
+    ax2.plot(range(1, numberOfGame + 2), chips_array, marker='.', color= color[0])
 
     ax3.plot(range(1, Global.NUMBER_OF_ROUNDS+1), win_round, marker='.', color= 'b')
     
