@@ -60,6 +60,7 @@ class Dealer:
     # the player asks the dealer to deal the card to the player.
     # hit is first initialized to false, for game initialization.
     def deal(self, hit, player):
+        # checking the length of the card.
         self.checkLengthCard()
         if hit == True:  # player can request a card
 
