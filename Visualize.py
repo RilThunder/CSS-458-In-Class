@@ -38,12 +38,17 @@ result for our analysis.
 win = 0.
 lose = 0.
 tie = 0.
+player_bust = 0
+dealer_bust = 0
+
 ratio = [] # The ratio of win per each game
 wins = [] # The list of wins in a game
 win_round = [] # The list of wins in every round
 chips = [] # The list of chips earned in every round
 win_ratio_list = [] # The list of winning ratio per simulation
 loss_ratio_list = [] # The list of losing ratio per simulation
+player_bust_list = [] # The list of player bust # per simulation
+dealer_bust_list = [] # The list of dealer bust # per simulation
 
 # Initialize the Plot Figure to plot the data
 fig = plt.figure(figsize=(15,9)) # initialize the size of the figure
@@ -75,7 +80,11 @@ def main():
     global file
     global win_ratio_list
     global loss_ratio_list
-    
+    global player_bust
+    global dealer_bust
+    global player_bust_list
+    global dealer_bust_list
+
     # Changing variables for each simulation
     Simulation_Variation = [1, 1, 2, 3]
     Player_Variation = [4, 4, 4, 4]
@@ -120,7 +129,9 @@ def main():
         del chips[:]
         del win_ratio_list[:]
         del loss_ratio_list[:]
-        
+        del player_bust_list[:]
+        del dealer_bust_list[:]
+
         # Changing the variables for each simulation.
         Global.WAY_TO_PLAY = Simulation_Variation[numberOfSim]
         Global.NUMBER_OF_DECKS = Deck_Variation[numberOfSim]
@@ -162,6 +173,8 @@ def main():
             lose = 0
             tie = 0
             chip = 0
+            player_bust = 0
+            dealer_bust = 0
 
             # Initialize the Dealer for this Simulation
             theDealer = Dealer(None, Global.NUMBER_OF_DECKS)
@@ -236,6 +249,8 @@ def main():
 def plotPieChart(current_pie, ratio, numberOfSim, numberOfGame, WAY_TO_PLAY):
     global win_ratio_list
     global loss_ratio_list
+    global player_bust
+    global dealer_bust
     
     # To display the correct play method on pie
     if(WAY_TO_PLAY == 1):
@@ -245,12 +260,18 @@ def plotPieChart(current_pie, ratio, numberOfSim, numberOfGame, WAY_TO_PLAY):
     else:
         playing = 'normally'
         
+    # Append the bust # to a list to get an average
+    player_bust_list.append(player_bust)
+    dealer_bust_list.append(dealer_bust)
+    
     # Show the title of the pie
     current_pie.set_title('Simulation ' + str(numberOfSim + 1) + \
                             ' Round ' + str(numberOfGame + 1) + '\n' + 
-                            'Player playing ' + playing + '\n' +
-                            'Players: ' + str(Global.NUMBER_OF_PLAYER) + \
-                            ' Decks: ' + str(Global.NUMBER_OF_DECKS))
+                            '' + playing + ' : ' +
+                            'Players = ' + str(Global.NUMBER_OF_PLAYER) + \
+                            ' : Decks = ' + str(Global.NUMBER_OF_DECKS) + '\n' +
+                            'P.Bust = ' + str(player_bust) + ' D.Bust = ' +
+                            str(dealer_bust))
 
     # Get the win/loss ratio, while adding them on the list
     win_ratio = np.average(ratio)
@@ -269,6 +290,10 @@ def plotPieChart(current_pie, ratio, numberOfSim, numberOfGame, WAY_TO_PLAY):
 def label_PieChart(current_pie, numberOfSim, WAY_TO_PLAY):
     global win_ratio_list
     global loss_ratio_list
+    global player_bust
+    global dealer_bust
+    global player_bust_list
+    global dealer_bust_list
     
     # To display the correct play method on pie
     if(WAY_TO_PLAY == 1):
@@ -280,9 +305,11 @@ def label_PieChart(current_pie, numberOfSim, WAY_TO_PLAY):
 
     # Show the title of the pie
     current_pie.set_title('Simulation ' + str(numberOfSim + 1) + \
-                            '\n' + 'Player playing ' + playing + '\n' +
-                            'Players: ' + str(Global.NUMBER_OF_PLAYER) + \
-                            ' Decks: ' + str(Global.NUMBER_OF_DECKS))
+                            '\n' + '' + playing + ' : ' +
+                            'Players = ' + str(Global.NUMBER_OF_PLAYER) + \
+                            ' : Decks = ' + str(Global.NUMBER_OF_DECKS) + '\n' +
+                            'P.Bust = ' + str(round(np.average(player_bust_list), 1)) + ' D.Bust = ' +
+                            str(round(np.average(dealer_bust_list), 1)))
                             
     # Get the total win/loss ratio, for average win/loss ratio
     win_ratio = np.average(win_ratio_list)
@@ -331,6 +358,9 @@ def check(listPlayer, theDealer, numberOfGame, numberOfRound):
     global chips
     global win_round
     global file
+    global player_bust
+    global dealer_bust
+
     writeTo = "For game " + str(numberOfGame + 1) + " and round " + str(
 
         numberOfRound + 1) + ", here are the results " + "\n"
@@ -361,6 +391,12 @@ def check(listPlayer, theDealer, numberOfGame, numberOfRound):
 
             lose += 1
             
+    # Get the number of bust for player and dealer in a game
+    if(listPlayer[0].bust == True):
+        player_bust += 1
+    if(theDealer.bust == True):
+        dealer_bust += 1
+
     chip += listPlayer[0].numOfChips
     win_round.append(win)
     writeTo = "Total number of win, lose and tie for player 1 is" + "\n"
