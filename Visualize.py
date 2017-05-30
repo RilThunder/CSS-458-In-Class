@@ -80,6 +80,7 @@ def main():
     Simulation_Variation = [1, 1, 2, 3]
     Player_Variation = [4, 4, 4, 4]
     Deck_Variation = [2, 2, 2, 2]
+    Confidence_Variation = [0.2, 0.4, 0.6, 0.8]
 
 #---------------------Number of simulation (max 4)----------------------
     # While loops until Number of Simulation is met
@@ -124,7 +125,8 @@ def main():
         Global.WAY_TO_PLAY = Simulation_Variation[numberOfSim]
         Global.NUMBER_OF_DECKS = Deck_Variation[numberOfSim]
         Global.NUMBER_OF_PLAYER = Player_Variation[numberOfSim]
-        
+        Global.BASE_CONFIDENT = Confidence_Variation[numberOfSim]
+            
         # Declaring the Axes to be used in Figure      
         # Displays title on simulation
         fig.text(0.33, 0.95, 'BLACKJACK SIMULATION', fontsize=30, color = 'k')
@@ -141,7 +143,8 @@ def main():
         # Declaring second axes for 'Chip Count vs Number of Games'
         ax2 = fig.add_axes((0.310, 0.50, 0.2, 0.3))
         ax2.axis([1, Global.NUMBER_OF_SIMULATION, 0, 2000])
-        ax2.set_title('Chip Count vs Number of Games')
+        ax2.set_title('Chip Count vs Number of Games' + '\n' + 
+        '(Starting confidence level: ' + str(Global.BASE_CONFIDENT) + ')')
         ax2.set_xlabel('Number of Games')
         ax2.set_ylabel('Number of Chips')
         
