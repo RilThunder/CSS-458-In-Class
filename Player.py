@@ -11,14 +11,14 @@ class Player:
     All variables to be used for the player is initialized here.
     """""
 
-    def __init__(self, Dealer, wayToPlay):
+    def __init__(self, Dealer, wayToPlay, confidence):
         self.bust = False
         self.stand = False
         self.currentBet = Global.BUY_IN
         self.firstHandCard = []
         self.numOfChips = Global.STARTING_CHIPS
         self.dealer = Dealer
-        self.confidenceLevel = Global.BASE_CONFIDENT
+        self.confidenceLevel = confidence
         self.choice = wayToPlay
         self.didDouble = False
 
