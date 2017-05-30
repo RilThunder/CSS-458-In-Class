@@ -254,11 +254,11 @@ def plotPieChart(current_pie, ratio, numberOfSim, numberOfGame, WAY_TO_PLAY):
     
     # To display the correct play method on pie
     if(WAY_TO_PLAY == 1):
-        playing = 'with odd'
+        playing = 'Odd'
     elif(WAY_TO_PLAY == 2):
-        playing = 'randomly'
+        playing = 'Random'
     else:
-        playing = 'normally'
+        playing = 'Normal'
         
     # Append the bust # to a list to get an average
     player_bust_list.append(player_bust)
@@ -268,9 +268,9 @@ def plotPieChart(current_pie, ratio, numberOfSim, numberOfGame, WAY_TO_PLAY):
     current_pie.set_title('Simulation ' + str(numberOfSim + 1) + \
                             ' Round ' + str(numberOfGame + 1) + '\n' + 
                             '' + playing + ' : ' +
-                            'Players = ' + str(Global.NUMBER_OF_PLAYER) + \
-                            ' : Decks = ' + str(Global.NUMBER_OF_DECKS) + '\n' +
-                            'P.Bust = ' + str(player_bust) + ' D.Bust = ' +
+                            'Players=' + str(Global.NUMBER_OF_PLAYER) + \
+                            ' : Decks=' + str(Global.NUMBER_OF_DECKS) + '\n' +
+                            'Avg. P.Bust=' + str(player_bust) + ' D.Bust ='+
                             str(dealer_bust))
 
     # Get the win/loss ratio, while adding them on the list
@@ -297,18 +297,18 @@ def label_PieChart(current_pie, numberOfSim, WAY_TO_PLAY):
     
     # To display the correct play method on pie
     if(WAY_TO_PLAY == 1):
-        playing = 'with odd'
+        playing = 'Odd'
     elif(WAY_TO_PLAY == 2):
-        playing = 'randomly'
+        playing = 'Random'
     else:
-        playing = 'normally'
+        playing = 'Normal'
 
     # Show the title of the pie
     current_pie.set_title('Simulation ' + str(numberOfSim + 1) + \
                             '\n' + '' + playing + ' : ' +
-                            'Players = ' + str(Global.NUMBER_OF_PLAYER) + \
-                            ' : Decks = ' + str(Global.NUMBER_OF_DECKS) + '\n' +
-                            'P.Bust = ' + str(round(np.average(player_bust_list), 1)) + ' D.Bust = ' +
+                            'Players=' + str(Global.NUMBER_OF_PLAYER) + \
+                            ' : Decks=' + str(Global.NUMBER_OF_DECKS) + '\n' +
+                            'Avg. P.Bust=' + str(round(np.average(player_bust_list), 1)) + ' D.Bust=' +
                             str(round(np.average(dealer_bust_list), 1)))
                             
     # Get the total win/loss ratio, for average win/loss ratio
