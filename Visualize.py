@@ -90,6 +90,8 @@ def main():
     Player_Variation = [4, 4, 4, 4]
     Deck_Variation = [2, 2, 2, 2]
     Confidence_Variation = [0.2, 0.4, 0.6, 0.8]
+    Round_Variation = [20, 20, 20, 20]
+    Game_Variation = [20, 20, 20, 20]
 
 #---------------------Number of simulation (max 4)----------------------
     # While loops until Number of Simulation is met
@@ -137,6 +139,8 @@ def main():
         Global.NUMBER_OF_DECKS = Deck_Variation[numberOfSim]
         Global.NUMBER_OF_PLAYER = Player_Variation[numberOfSim]
         Global.BASE_CONFIDENT = Confidence_Variation[numberOfSim]
+        Global.NUMBER_OF_SIMULATION = Game_Variation[numberOfSim]
+        Global.NUMBER_OF_ROUNDS = Round_Variation[numberOfSim]
             
         # Declaring the Axes to be used in Figure      
         # Displays title on simulation
