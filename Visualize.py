@@ -169,7 +169,7 @@ def main():
             # Initialize the Player(s) for this simulation
             listOfPlayer = []
             for i in range(Global.NUMBER_OF_PLAYER): # Player number is decided on NUMBER_OF_PLAYER
-                player = Player(theDealer, Global.WAY_TO_PLAY)
+                player = Player(theDealer, Global.WAY_TO_PLAY, Global.BASE_CONFIDENT)
                 listOfPlayer.append(player)  # Each player now have this dealer
                 
             # Asigning the list of player back to the dealer
