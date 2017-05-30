@@ -12,7 +12,7 @@ MAX_BET =  100         # The maximum bet per 1 round of game
 NUMBER_OF_SIMULATION = 40  # Number of Simulation to be done
 NUMBER_OF_ROUNDS = 50  # Number of rounds per simulation
 DEALER_SOFT_SEVENTEEN = True  # Assign soft17 rule for the Dealer
-WAY_TO_PLAY = 1  # 3 ways to play. 1 = Play with odds. 2 = play randomly. 3 = play in a normal way
+WAY_TO_PLAY = 2  # 3 ways to play. 1 = Play with odds. 2 = play randomly. 3 = play in a normal way
 CHANCE_TO_DOUBLE = 0.25  # Used to determine when the play should double in play random
 CHANCE_TO_HIT = 0.5  # Used to determine when the play should hit in play random
 BASE_CONFIDENT = 0.5  # affect how the player will bet
