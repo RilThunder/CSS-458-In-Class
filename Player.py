@@ -110,11 +110,16 @@ class Player:
     """
     def makeTheBet(self):
         # checking for the players confidence interval. 
+        # checking to see if players conf is less than .5 and the current bet
+        # is less than max bet.
         if self.confidenceLevel > .5 and self.currentBet < Global.MAX_BET:
             self.currentBet += round(self.currentBet * (self.confidenceLevel - .5))
         elif self.confidenceLevel < .5 and self.currentBet > Global.BUY_IN:
             self.currentBet -= round(self.currentBet * (.5 - self.confidenceLevel))
         # Need to make sure the bet does not go over the limit
+        # Checks to see if the current bet is less than the Buy_IN
+        # Checks to see if the current bet is greater than Max_Bet, if so then
+        # current bet get the value of max bet. 
         if self.currentBet < Global.BUY_IN:
             self.currentBet = Global.BUY_IN
         if self.currentBet > Global.MAX_BET:
@@ -127,11 +132,15 @@ class Player:
     """
 
     def play(self):
+        # checking if the array firsthand card is less than 21
         if np.sum(np.asarray(self.firstHandCard) > 21):
+            # looping into the fristhand card and assigning values
+            # 11 and 1
             for i in range(np.size(np.asarray(self.firstHandCard))):
                 if self.firstHandCard[i] == 11:
                     self.firstHandCard[i] = 1
                     break
+        # decalring the choice of condtions the player can play with. 
         if self.choice == 1:
             self.playWithOdds()
         else:
@@ -147,10 +156,11 @@ class Player:
     """
 
     def playWithRandom(self):
+        # first make the bet to see how much the player will bet
         self.makeTheBet()
         while self.stand == False and self.bust != True:
             self.dealer.checkLengthCard()
-
+            # using the radndom function
             choice = random.random()
             # Can vary the chance to hit
             if choice <= Global.CHANCE_TO_HIT:
