@@ -4,7 +4,6 @@ import Global
 from Card import Card
 
 
-
 class Dealer:
     """""
     This is the constructor for the Dealer class
@@ -47,7 +46,7 @@ class Dealer:
                 if np.sum(np.asarray(i.firstHandCard)) != np.sum(np.asarray(self.firstHandCard)):
                     i.numOfChips -= i.currentBet
                     if i.confidenceLevel > 0.0:
-                        i.confidenceLevel -= i.confidenceLevel ** 4
+                        i.confidenceLevel -= i.confidenceLevel ** 3
                         if i.confidenceLevel < 0.0:
                             i.confidenceLevel = 0.0
 
