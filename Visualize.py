@@ -227,7 +227,7 @@ def main():
         # Clears title to show the next simulation text
         simu_title.remove()
 
-    simu_title = fig.text(0.21, 0.85, 'Simulation: ' + str(numberOfSim+1), fontsize=20)
+    simu_title = fig.text(0.21, 0.88, 'Simulation: ' + str(numberOfSim+1), fontsize=20)
 
     # Plot the figure
     plt.show()
