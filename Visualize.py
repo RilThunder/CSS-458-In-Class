@@ -131,7 +131,7 @@ def main():
         # Displays title on simulation
         fig.text(0.33, 0.95, 'BLACKJACK SIMULATION', fontsize=30, color = 'k')
         # Display 'Simulation #' to indicate which simulation the graph is showing
-        simu_title = fig.text(0.21, 0.85, 'Simulation: ' + str(numberOfSim+1), fontsize=20)
+        simu_title = fig.text(0.21, 0.88, 'Simulation: ' + str(numberOfSim+1), fontsize=20)
         
         # Declaring first axes for 'Win Ratio vs Number of Games'
         ax1 = fig.add_axes((0.045, 0.50, 0.2, 0.3))
