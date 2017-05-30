@@ -1,42 +1,67 @@
 import matplotlib.pyplot as plt
 import numpy as np
-
 import Global
 from Dealer import Dealer
 from Player import Player
+
+#=======================================================================
+#                        General Documentation
+""" 
+Blackjack Simulation - Visualize
+Visualize work as the Driver for the Blackjack Simulation.
+
+Once the program runs, it will simulate the blackjack
+as if it was played by an actual player and a dealer.
+
+All of the win, loss, tie, chipcounts will be counted for,
+and is used to plot the analysis on the graphical figure.
+
+The simulation is executed 4 times in our simulation,
+and per simulation, a different variable can change to compare the
+result for our analysis.
+"""
+
+#-----------------------------------------------------------------------
+#                       Additional Documentation
+#
+# - Written by : Trystan MacInnes, Himakar Kadiri,
+#                Jin Kim, Thuan Tran
+# - Last modified on : 05/29/2017
+#
+# Notes:
+# - Written with Python 2.7.11
+# - To test, execute "python Visualize.py".
+#-----------------------------------------------------------------------
 
 # Global variable
 win = 0.
 lose = 0.
 tie = 0.
-# The ratio of win per each game
-ratio = []
-wins = []
-win_round = []
-chips = []
-win_ratio_list = []
-loss_ratio_list = []
+ratio = [] # The ratio of win per each game
+wins = [] # The list of wins in a game
+win_round = [] # The list of wins in every round
+chips = [] # The list of chips earned in every round
+win_ratio_list = [] # The list of winning ratio per simulation
+loss_ratio_list = [] # The list of losing ratio per simulation
 
-fig = plt.figure(figsize=(15,9))
+# Initialize the Plot Figure to plot the data
+fig = plt.figure(figsize=(15,9)) # initialize the size of the figure
+# Set the background of figure to 'white'
 rect = fig.patch
 rect.set_facecolor('white')
-pie_size = [[0.535, 0.46, 0.23, 0.37], [0.535, 0.03, 0.23, 0.37],
-            [0.77, 0.46, 0.23, 0.37], [0.77, 0.03, 0.23, 0.37]]
-
+# Set the title of the figure in a window
 fig = plt.gcf()
 fig.canvas.set_window_title('BLACKJACK SIMULATION')
+# Declaring the size of each pie to be used
+pie_size = [[0.535, 0.46, 0.23, 0.37], [0.77, 0.46, 0.23, 0.37],
+            [0.535, 0.03, 0.23, 0.37], [0.77, 0.03, 0.23, 0.37]]
 
-# Variables to write to a text file
 filename = 'MainTextFile.txt'
 file = open(filename, 'w')
 playOneRound = 'playOneRoundDetail.txt'
 detailFile = open(playOneRound, 'w')
 
-"""
-This main method will play the game play jack a constant number of game
-Each game with a constant number of round 
-This will display plots that will show the statistics of using different play method
-"""
+#--------------------------------main-----------------------------------
 def main():
     global wins
     global win
@@ -49,12 +74,15 @@ def main():
     global file
     global win_ratio_list
     global loss_ratio_list
-    # Different ways to play
-    Simulation_Variation = [1, 2, 3, 1]
+    
+    # Changing variables for each simulation
+    Simulation_Variation = [1, 1, 2, 3]
+    Player_Variation = [4, 4, 4, 4]
+    Deck_Variation = [2, 2, 2, 2]
 
+#---------------------Number of simulation (max 4)----------------------
     # While loops until Number of Simulation is met
     for numberOfSim in range(4):
-        # Write to the text file which play method we are using
         if numberOfSim == 1:
             file.write('We are using the playing with odds method')
             file.write('\n')
@@ -71,35 +99,48 @@ def main():
                 file.write('\n')
                 file.write('This is a set of predefined way that the player can play Black Jack')
         file.write('\n')
-
-        numberOfGame = 0
+        
+        # Reinitializing the value and list for new simulation
+        numberOfGame = 0 
         del wins[:]
         del ratio[:]
         del chips[:]
         del win_ratio_list[:]
         del loss_ratio_list[:]
+        
+        # Changing the variables for each simulation.
         Global.WAY_TO_PLAY = Simulation_Variation[numberOfSim]
+        Global.NUMBER_OF_DECKS = Deck_Variation[numberOfSim]
+        Global.NUMBER_OF_PLAYER = Player_Variation[numberOfSim]
         
         # Declaring the Axes to be used in Figure      
+        # Displays title on simulation
         fig.text(0.33, 0.95, 'BLACKJACK SIMULATION', fontsize=30, color = 'k')
+        # Display 'Simulation #' to indicate which simulation the graph is showing
         simu_title = fig.text(0.21, 0.85, 'Simulation: ' + str(numberOfSim+1), fontsize=20)
         
+        # Declaring first axes for 'Win Ratio vs Number of Games'
         ax1 = fig.add_axes((0.045, 0.50, 0.2, 0.3))
         ax1.axis([1, Global.NUMBER_OF_SIMULATION, 0.0, 1.0])
         ax1.set_title('Win Ratio vs Number of Games')
         ax1.set_xlabel('Number of Games')
         ax1.set_ylabel('Win Ratio')
         
+        # Declaring second axes for 'Chip Count vs Number of Games'
         ax2 = fig.add_axes((0.310, 0.50, 0.2, 0.3))
-        ax2.axis([1, Global.NUMBER_OF_SIMULATION, 0, 1000])
+        ax2.axis([1, Global.NUMBER_OF_SIMULATION, 0, 2000])
         ax2.set_title('Chip Count vs Number of Games')
         ax2.set_xlabel('Number of Games')
         ax2.set_ylabel('Number of Chips')
         
+        # Declaring second axes for 'Number of Win vs Number of Rounds'
+        # Title, and other variables are declared later for refreshing plot figure
         ax3 = fig.add_axes((0.045, 0.07, 0.465, 0.3))
         
+        # Declaring axes for pie chart at pie_size[] location
         current_pie = plt.axes(pie_size[numberOfSim])
 
+#-------------------------- Number of Games ----------------------------
         while (numberOfGame < Global.NUMBER_OF_SIMULATION):
             # Reset the statistics for every new game
             win = 0
@@ -122,6 +163,8 @@ def main():
             # Shuffle the deck before entering the game
             theDealer.theDeck.shuffle()
             
+
+#------------------------- Number of Rounds ----------------------------
             # Play each round until NUMBER_OF ROUNDS or Player runs out of Chips
             for i in range(Global.NUMBER_OF_ROUNDS): 
                 # Initialize the Game, by dealing 2 cards for every player(s)
@@ -131,7 +174,7 @@ def main():
                 # Player(s) play until they Stand or Bust
                 for j in range(Global.NUMBER_OF_PLAYER):
                     listOfPlayer[j].play()
-                    
+                         
                 # Dealer play until dealer Stand or Bust
                 theDealer.play()
     
@@ -146,84 +189,98 @@ def main():
             chips.append(float(chip) / (Global.NUMBER_OF_ROUNDS))
             
             # Finished one whole simulation
+            # Calls for each method to plot the new lines in a figure
             plotNumberOfGame(ax1, ax2, ax3, numberOfGame, win_round, wins, chips)
             plotPieChart(current_pie, ratio, numberOfSim, numberOfGame, Global.WAY_TO_PLAY)
+            # Used for last plot lines at the end of simulation, 
+            # to keep the simulation show, without erasing
             if(numberOfSim == 3) and (numberOfGame == Global.NUMBER_OF_SIMULATION - 1):
                 ax3.plot(range(1, Global.NUMBER_OF_ROUNDS+1), win_round, marker='.', color= 'b')
+
+            # Clear win_round to be used on next game
             del win_round[:]
             numberOfGame += 1
             
+        # Clear axes 1 and 2 to be used for next simulation
         if(numberOfSim < 3):
             ax1.cla()
             ax2.cla()
+
+        # Makes a pie chart figure for current simulation
         label_PieChart(current_pie, numberOfSim, Global.WAY_TO_PLAY)
+
+        # Clears title to show the next simulation text
         simu_title.remove()
 
     simu_title = fig.text(0.21, 0.85, 'Simulation: ' + str(numberOfSim+1), fontsize=20)
+
+    # Plot the figure
     plt.show()
 
-
-"""""
-This method is used to label the pie chart in the simulation
-"""""
-def label_PieChart(current_pie, numberOfSim, WAY_TO_PLAY):
-    global win_ratio_list
-    global loss_ratio_list
-    
-    if(WAY_TO_PLAY == 1):
-        playing = 'with odd'
-    elif(WAY_TO_PLAY == 2):
-        playing = 'randomly'
-    else:
-        playing = 'normally'
-
-    current_pie.set_title('Simulation ' + str(numberOfSim + 1) + \
-                            '\n' + 'Player playing ' + playing + '\n' +
-                            'Players: ' + str(Global.NUMBER_OF_PLAYER) + \
-                            ' Decks: ' + str(Global.NUMBER_OF_DECKS))
-
-    win_ratio = np.average(win_ratio_list)
-    loss_ratio = 1 - np.average(loss_ratio_list)
-    win_loss_ratio = np.array([win_ratio, loss_ratio])
-    current_pie.pie(win_loss_ratio, labels = ['Win', 'Loss'], \
-                    colors = ['yellowgreen', 'gold'], autopct='%1.1f%%')
-    labels = ['Win', 'Loss']
-    current_pie.legend(labels, loc = 2)
-
-
-"""""
-This method is used to plot the pie chart in the simulation
-"""""
-
+#--------------------------- plotPieChart ------------------------------
 def plotPieChart(current_pie, ratio, numberOfSim, numberOfGame, WAY_TO_PLAY):
     global win_ratio_list
     global loss_ratio_list
     
+    # To display the correct play method on pie
     if(WAY_TO_PLAY == 1):
         playing = 'with odd'
     elif(WAY_TO_PLAY == 2):
         playing = 'randomly'
     else:
         playing = 'normally'
-
+        
+    # Show the title of the pie
     current_pie.set_title('Simulation ' + str(numberOfSim + 1) + \
                             ' Round ' + str(numberOfGame + 1) + '\n' + 
                             'Player playing ' + playing + '\n' +
                             'Players: ' + str(Global.NUMBER_OF_PLAYER) + \
                             ' Decks: ' + str(Global.NUMBER_OF_DECKS))
 
+    # Get the win/loss ratio, while adding them on the list
     win_ratio = np.average(ratio)
     win_ratio_list.append(win_ratio)
     loss_ratio = 1 - np.average(ratio)
     loss_ratio_list.append(win_ratio)
-    
     win_loss_ratio = np.array([win_ratio, loss_ratio])
+    
+    # Display the pie chart that refreshes every round
     current_pie.pie(win_loss_ratio, \
                     colors = ['yellowgreen', 'gold'])
     labels = ['Win', 'Loss']
     current_pie.legend(labels, loc = 2)
 
+#------------------------- label_PieChart ------------------------------
+def label_PieChart(current_pie, numberOfSim, WAY_TO_PLAY):
+    global win_ratio_list
+    global loss_ratio_list
+    
+    # To display the correct play method on pie
+    if(WAY_TO_PLAY == 1):
+        playing = 'with odd'
+    elif(WAY_TO_PLAY == 2):
+        playing = 'randomly'
+    else:
+        playing = 'normally'
 
+    # Show the title of the pie
+    current_pie.set_title('Simulation ' + str(numberOfSim + 1) + \
+                            '\n' + 'Player playing ' + playing + '\n' +
+                            'Players: ' + str(Global.NUMBER_OF_PLAYER) + \
+                            ' Decks: ' + str(Global.NUMBER_OF_DECKS))
+                            
+    # Get the total win/loss ratio, for average win/loss ratio
+    win_ratio = np.average(win_ratio_list)
+    loss_ratio = 1 - np.average(loss_ratio_list)
+    win_loss_ratio = np.array([win_ratio, loss_ratio])
+
+    # Display the pie chart that refreshes every round
+    current_pie.pie(win_loss_ratio, labels = ['Win', 'Loss'], \
+                    colors = ['yellowgreen', 'gold'], autopct='%1.1f%%')
+    labels = ['Win', 'Loss']
+    current_pie.legend(labels, loc = 2)
+
+#------------------------- plotNumberOfGame ----------------------------
 def plotNumberOfGame(ax1, ax2, ax3, numberOfGame, win_round, wins, chips):
     
     # Plot the first axes in Fig
@@ -237,22 +294,18 @@ def plotNumberOfGame(ax1, ax2, ax3, numberOfGame, win_round, wins, chips):
     chips_array[chips_array < 0] = 100
     ax2.plot(range(1, numberOfGame + 2), chips_array, marker='.', color= color[0])
 
+    # Plot the third axes in Fig
     ax3.plot(range(1, Global.NUMBER_OF_ROUNDS+1), win_round, marker='.', color= 'b')
     
     plt.pause(0.06)  # Pause 0.001 to create interval between every plot
     fig.show()  # Display Fig1
 
+    # Clear the axes 3 to refresh for next round
     ax3.cla()
     ax3.axis([1, Global.NUMBER_OF_ROUNDS, 0.0, Global.NUMBER_OF_ROUNDS])
     ax3.set_title('Number of Win vs Number of Rounds')
     ax3.set_xlabel('Number of Rounds')
     ax3.set_ylabel('Number of Win')
-
-
-"""""
-This method is used at the each of each round to check if the player win or lost
-Also to update the global variable to 
-"""""
 
 def check(listPlayer, theDealer, numberOfGame, numberOfRound):
     global win
@@ -288,7 +341,7 @@ def check(listPlayer, theDealer, numberOfGame, numberOfRound):
                 file.write("The player Busted first")
                 file.write('\n')
             lose += 1
-
+            
     chip += listPlayer[0].numOfChips
     win_round.append(win)
     
@@ -305,12 +358,6 @@ def check(listPlayer, theDealer, numberOfGame, numberOfRound):
     file.write("Total chips at the moment " + str(listPlayer[0].numOfChips))
     file.write('\n')
 
-
-""""
-This method is used to show the detail of one round in one game
-It will show what cards each player is having and the dealer's card
-It will show the result of the round as well
-"""""
 def playRound():
     global detailFile
 
@@ -385,12 +432,7 @@ def playRound():
     # Remove cards from player and dealer and start empty again
     theDealer.refresh()
 
-
-# The main method generated figures and play GLobal.NUMBEROFSIMULATIONS with a constant round
 main()
-
-# Uncomment the playRound() method to see the detail of one round
-
 # playRound()
 file.close()
 detailFile.close()
