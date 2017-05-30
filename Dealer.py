@@ -4,6 +4,7 @@ import Global
 from Card import Card
 
 
+
 class Dealer:
     """""
     This is the constructor for the Dealer class
@@ -18,6 +19,7 @@ class Dealer:
         self.firstHandCard = []
         self.listOfPlayer = player
         self.theDeck = Card(numberOfDeck)
+        # bust and stand are initially set to false.
         self.bust = False
         self.stand = False
 
@@ -30,6 +32,8 @@ class Dealer:
         # If the player wins, give them the chip
         # In addition, increase their confidence Level (which will affect their betting)
         for i in self.listOfPlayer:
+            # checking to see if the bust is false and first hand card of array is greater
+            # than the sum of first hand card array.
             if (i.bust == False and (np.sum(np.asarray(i.firstHandCard)) > np.sum(np.asarray(self.firstHandCard)))) \
                     or (self.bust == True and i.bust == False):
                 i.numOfChips += i.currentBet * 2
@@ -39,6 +43,7 @@ class Dealer:
                         i.confidenceLevel = 1.0
             else:
                 # Player lose, time to take away their money
+                # Checking the players confidence interval
                 if np.sum(np.asarray(i.firstHandCard)) != np.sum(np.asarray(self.firstHandCard)):
                     i.numOfChips -= i.currentBet
                     if i.confidenceLevel > 0.0:
@@ -64,11 +69,13 @@ class Dealer:
             # For the number of players
             for i in self.listOfPlayer:
                 # add two cards for every player
+                # appending values to the first hand card.
                 self.checkLengthCard()
                 i.firstHandCard.append(self.theDeck.draw())
                 i.firstHandCard.append(self.theDeck.draw())
 
             # add two cards for the dealer
+            # appending values to the frist hadn card
             self.checkLengthCard()
             self.firstHandCard.append(self.theDeck.draw())
             self.firstHandCard.append(self.theDeck.draw())
@@ -82,6 +89,7 @@ class Dealer:
     def checkLengthCard(self):
         # checks the length of the card, to see if it is greater than 2
         # since there are two cards. 
+        # Call the shuffle method to shuffle the deck
         if len(self.theDeck.listOfCard) < 2:
             self.theDeck = Card(self.numberDeckUsed)
             self.theDeck.shuffle()  
