@@ -189,6 +189,7 @@ class Player:
     """
 
     def playWithOdds(self):
+         # first make the bet to see how much the player will bet
         self.makeTheBet()
 
         # inside the loop, initially set to false and bust is not true initially.
