@@ -9,6 +9,7 @@ class Card:
     def __init__(self, numberOfDeck):
         # creatr an array list of cards
         self.listOfCard = []
+        # looping throught the length of numberofDecks
         for i in range(numberOfDeck):
             for numberOfSuit in range(4):
                 # Add the card from 2 - 10
@@ -36,6 +37,7 @@ class Card:
     It will remove that card and return the value of the card
     """""
     def draw(self):
+        # get the next card from the array of cards
         # Get the next card
         value = self.listOfCard[0]
         
