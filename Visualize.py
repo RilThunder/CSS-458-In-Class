@@ -87,8 +87,8 @@ def main():
 
     # Changing variables for each simulation
     Simulation_Variation = [1, 1, 2, 3]
-    Player_Variation = [4, 4, 4, 4]
-    Deck_Variation = [2, 2, 2, 2]
+    Player_Variation = [100, 1000, 15, 1]
+    Deck_Variation = [12, 12, 12, 12]
     Confidence_Variation = [0.2, 0.4, 0.6, 0.8]
     Round_Variation = [20, 20, 20, 20]
     Game_Variation = [20, 20, 20, 20]
@@ -513,7 +513,7 @@ def playRound():
     # Remove cards from player and dealer and start empty again
     theDealer.refresh()
 
-main()
+#main()
 playRound()
 file.close()
 detailFile.close()
